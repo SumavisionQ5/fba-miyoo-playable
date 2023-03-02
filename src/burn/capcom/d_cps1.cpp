@@ -1275,6 +1275,7 @@ static struct BurnInputInfo WofhfhInputList[] =
  	{"P1 Right"         , BIT_DIGITAL  , CpsInp001+0, "p1 right"  },
  	{"P1 Attack"        , BIT_DIGITAL  , CpsInp001+4, "p1 fire 1" },
  	{"P1 Jump"          , BIT_DIGITAL  , CpsInp001+5, "p1 fire 2" },
+	{"P1 Fire 3"        , BIT_DIGITAL  , CpsInp001+6, "p1 fire 3" },
 
  	{"P2 Coin"          , BIT_DIGITAL  , CpsInp018+1, "p2 coin"   },
  	{"P2 Start"         , BIT_DIGITAL  , CpsInp018+5, "p2 start"  },
@@ -1284,6 +1285,7 @@ static struct BurnInputInfo WofhfhInputList[] =
  	{"P2 Right"         , BIT_DIGITAL  , CpsInp000+0, "p2 right"  },
  	{"P2 Attack"        , BIT_DIGITAL  , CpsInp000+4, "p2 fire 1" },
  	{"P2 Jump"          , BIT_DIGITAL  , CpsInp000+5, "p2 fire 2" },
+	{"P1 Fire 3"        , BIT_DIGITAL  , CpsInp000+6, "p1 fire 3" },
 
  	{"P3 Coin"          , BIT_DIGITAL  , CpsInp177+6, "p3 coin"   },
  	{"P3 Start"         , BIT_DIGITAL  , CpsInp177+7, "p3 start"  },
@@ -1293,6 +1295,7 @@ static struct BurnInputInfo WofhfhInputList[] =
  	{"P3 Right"         , BIT_DIGITAL  , CpsInp177+0, "p3 right"  },
  	{"P3 Attack"        , BIT_DIGITAL  , CpsInp177+4, "p3 fire 1" },
  	{"P3 Jump"          , BIT_DIGITAL  , CpsInp177+5, "p3 fire 2" },
+	{"P3 Fire 3"        , BIT_DIGITAL  , CpsInp177+6, "p3 fire 3" },
 
  	{"Reset"            , BIT_DIGITAL  , &CpsReset,   "reset"     },
  	{"Diagnostic"       , BIT_DIGITAL  , CpsInp018+6, "diag"      },
@@ -1303,6 +1306,49 @@ static struct BurnInputInfo WofhfhInputList[] =
 };
 
 STDINPUTINFO(Wofhfh);
+
+// 添加wofch by GXB by GXB 20221219
+
+static struct BurnInputInfo wofchInputList[] =
+{
+	{"P1 Pause"         , BIT_DIGITAL  , CpsInp018+2, "p1 coin"   },
+ 	{"P1 Start"         , BIT_DIGITAL  , CpsInp018+4, "p1 start"  },
+ 	{"P1 Up"            , BIT_DIGITAL  , CpsInp001+3, "p1 up"     },
+ 	{"P1 Down"          , BIT_DIGITAL  , CpsInp001+2, "p1 down"   },
+ 	{"P1 Left"          , BIT_DIGITAL  , CpsInp001+1, "p1 left"   },
+ 	{"P1 Right"         , BIT_DIGITAL  , CpsInp001+0, "p1 right"  },
+ 	{"P1 Attack"        , BIT_DIGITAL  , CpsInp001+4, "p1 fire 1" },
+ 	{"P1 Jump"          , BIT_DIGITAL  , CpsInp001+5, "p1 fire 2" },
+ 	{"P1 Fire"          , BIT_DIGITAL  , CpsInp001+6, "p1 fire 3" },
+ 	{"P1 Fire 4"        , BIT_DIGITAL  , CpsInp001+7, "p1 fire 4" },
+ 	{"P1 Fire 5"        , BIT_DIGITAL  , CpsInp018+0, "p1 fire 5" },
+ 	{"P1 Fire 6"        , BIT_DIGITAL  , CpsInp018+6, "p1 fire 6" },
+
+	{"P2 Pause"         , BIT_DIGITAL  , CpsInp018+3, "p2 coin"   },
+ 	{"P2 Start"         , BIT_DIGITAL  , CpsInp018+5, "p2 start"  },
+ 	{"P2 Up"            , BIT_DIGITAL  , CpsInp000+3, "p2 up"     },
+ 	{"P2 Down"          , BIT_DIGITAL  , CpsInp000+2, "p2 down"   },
+ 	{"P2 Left"          , BIT_DIGITAL  , CpsInp000+1, "p2 left"   },
+ 	{"P2 Right"         , BIT_DIGITAL  , CpsInp000+0, "p2 right"  },
+ 	{"P2 Attack"        , BIT_DIGITAL  , CpsInp000+4, "p2 fire 1" },
+ 	{"P2 Jump"          , BIT_DIGITAL  , CpsInp000+5, "p2 fire 2" },
+ 	{"P2 Fire"          , BIT_DIGITAL  , CpsInp000+6, "p2 fire 3" },
+ 	{"P2 Fire 4"        , BIT_DIGITAL  , CpsInp000+7, "p2 fire 4" },
+ 	{"P2 Fire 5"        , BIT_DIGITAL  , CpsInp018+1, "p2 fire 5" },
+ 	{"P2 Fire 6"        , BIT_DIGITAL  , CpsInp018+7, "p2 fire 6" },
+	
+	{"P3 Start"         , BIT_DIGITAL  , CpsInpc001+7, "p3 start" },  // There are no options for P3
+ 	{"P3 Up"            , BIT_DIGITAL  , CpsInpc001+3, "p3 up"    },
+ 	{"P3 Down"          , BIT_DIGITAL  , CpsInpc001+2, "p3 down"  },
+ 	{"P3 Left"          , BIT_DIGITAL  , CpsInpc001+1, "p3 left"  },
+ 	{"P3 Right"         , BIT_DIGITAL  , CpsInpc001+0, "p3 right" },
+ 	{"P3 Attack"        , BIT_DIGITAL  , CpsInpc001+4, "p3 fire 1"},
+ 	{"P3 Jump"          , BIT_DIGITAL  , CpsInpc001+5, "p3 fire 2"},
+
+ 	{"Reset"            , BIT_DIGITAL  , &CpsReset,   "reset"     },
+};
+
+STDINPUTINFO(wofch)
 
 // Dip Switch Definitions
 
@@ -7575,6 +7621,31 @@ static struct BurnRomInfo Cps1frogRomDesc[] = {
 STD_ROM_PICK(Cps1frog)
 STD_ROM_FN(Cps1frog)
 
+//添加wofch BY GXB 20221219
+static struct BurnRomInfo wofchRomDesc[] = {
+	{ "tk2=ch=_23.8f",		0x080000, 0x2BCE786A, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+	{ "tk2=ch=_22.7f",		0x080000, 0xE0C80D47, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "tk2-1m.3a",		0x080000, 0x0D9CB9BF, BRF_GRA | CPS1_TILES },
+	{ "tk2-3m.5a",		0x080000, 0x45227027, BRF_GRA | CPS1_TILES },
+	{ "tk2-2m.4a",		0x080000, 0xC5CA2460, BRF_GRA | CPS1_TILES },
+	{ "tk2-4m.6a",		0x080000, 0xE349551C, BRF_GRA | CPS1_TILES },
+	{ "tk2=ch=_05.7a",		0x080000, 0xE4A44D53, BRF_GRA | CPS1_TILES },
+	{ "tk2=ch=_06.8a",		0x080000, 0x58066BA8, BRF_GRA | CPS1_TILES },
+	{ "tk2=ch=_07.9a",		0x080000, 0xCC9006C9, BRF_GRA | CPS1_TILES },
+	{ "tk2=ch=_08.10a",		0x080000, 0xD4A19A02, BRF_GRA | CPS1_TILES },
+
+	{ "tk2_qa.5k",		0x020000, 0xC9183A0D, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "tk2-q1.1k",		0x080000, 0x611268CF, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "tk2-q2.2k",		0x080000, 0x20F55CA9, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "tk2-q3.3k",		0x080000, 0xBFCF6F52, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "tk2-q4.4k",		0x080000, 0x36642E88, BRF_SND | CPS1_QSOUND_SAMPLES },
+};
+
+STD_ROM_PICK(wofch)
+STD_ROM_FN(wofch)
+
 // Game config
 
 typedef void (*KabukiDecode)();
@@ -7748,6 +7819,7 @@ static const struct GameConfig ConfigTable[] =
 	{ "wofsjb"  , CPS_B_21_DEF, mapper_TK263B, 0, wof_decode          },
 	{ "sfzch"   , CPS_B_21_DEF, mapper_sfzch , 0, NULL                },
 	{ "cps1frog", CPS_B_04    , mapper_frog  , 0, NULL                },
+	{ "wofch"	, CPS_B_21_DEF, mapper_sfzch , 0, wof_decode          }, // 添加wofch by GXB 20221219
 	
 #if defined INCLUDE_HACKS
 	// Not included games
@@ -9037,6 +9109,32 @@ static int DrvExit()
 	BootlegSpriteRam = NULL;
 	
 	return 0;
+}
+
+// 添加wofch by GXB 20221219
+static void wofchPatch()
+{
+	// Fix blood color
+    CpsRom[0x7715] = 0x60;
+    // Enable 3 Players, 暂不开启
+    //CpsRom[0xED928] = 0x1;
+    // Enable hidden mode
+    CpsRom[0xED946] = 0x1;
+}
+
+static INT32 wofchInit()
+{
+	INT32 nRet = 0;
+
+	Cps1Qs = 1;
+	
+	AmendProgRomCallback = wofchPatch;
+	
+	nRet = TwelveMhzInit();
+	
+	Cps = 3;
+
+	return nRet;
 }
 
 // Driver Definitions
@@ -10591,6 +10689,17 @@ struct BurnDriver BurnDrvCpsCps1frog = {
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
 };
 
+// 添加wofch BY GXB 20221219
+struct BurnDriver BurnDrvCpswofch = {
+	"wofch", "wofch", NULL, "2022",
+	"Tun Shi Tian Di 2 - Chi Bi Zhi Zhan (Jia Yong Ji Ban)\0", "Hack", "Capcom", "CPS1 / QSound",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE, 3, HARDWARE_CAPCOM_CPSCHANGER,
+	NULL, wofchRomInfo, wofchRomName, wofchInputInfo, NULL,
+	wofchInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+	
 #if defined INCLUDE_HACKS
 
 // Not included games
