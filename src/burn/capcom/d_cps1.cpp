@@ -9116,7 +9116,7 @@ static void wofchPatch()
 {
 	// Fix blood color
     CpsRom[0x7715] = 0x60;
-    // Enable 3 Players, 暂不开启
+    // Enable 3 Players, F1C100S机能弱，暂不开启
     //CpsRom[0xED928] = 0x1;
     // Enable hidden mode
     CpsRom[0xED946] = 0x1;
