@@ -93,9 +93,9 @@ void sdl_input_read() // called from do_keypad()
 			else if (event.key.keysym.sym == keymap.start1) keypad &= ~KEYPAD_START;
 
 			// handheld keypresses
-			if (event.key.keysym.sym == SDLK_LALT) keypc &= ~BUTTON_B;
-			else if (event.key.keysym.sym == SDLK_LCTRL) keypc &= ~BUTTON_X;
-			else if (event.key.keysym.sym == SDLK_LSHIFT) keypc &= ~BUTTON_A;
+			if (event.key.keysym.sym == SDLK_LALT) keypc &= ~BUTTON_A;
+			else if (event.key.keysym.sym == SDLK_LCTRL) keypc &= ~BUTTON_B;
+			else if (event.key.keysym.sym == SDLK_LSHIFT) keypc &= ~BUTTON_X;
 			else if (event.key.keysym.sym == SDLK_SPACE) keypc &= ~BUTTON_Y;
 			else if (event.key.keysym.sym == SDLK_TAB) keypc &= ~BUTTON_SL;
 			else if (event.key.keysym.sym == SDLK_BACKSPACE) keypc &= ~BUTTON_SR;
@@ -122,9 +122,9 @@ void sdl_input_read() // called from do_keypad()
 			else if (event.key.keysym.sym == keymap.start1) keypad |= KEYPAD_START;
 
 			// handheld keypresses
-			if (event.key.keysym.sym == SDLK_LALT) keypc |= BUTTON_B;
-			else if (event.key.keysym.sym == SDLK_LCTRL) keypc |= BUTTON_X;
-			else if (event.key.keysym.sym == SDLK_LSHIFT) keypc |= BUTTON_A;
+			if (event.key.keysym.sym == SDLK_LALT) keypc |= BUTTON_A;
+			else if (event.key.keysym.sym == SDLK_LCTRL) keypc |= BUTTON_B;
+			else if (event.key.keysym.sym == SDLK_LSHIFT) keypc |= BUTTON_X;
 			else if (event.key.keysym.sym == SDLK_SPACE) keypc |= BUTTON_Y;
 			else if (event.key.keysym.sym == SDLK_TAB) keypc |= BUTTON_SL;
 			else if (event.key.keysym.sym == SDLK_BACKSPACE) keypc |= BUTTON_SR;
@@ -161,10 +161,11 @@ void do_keypad()
 	if (keypad & KEYPAD_COIN) FBA_KEYPAD[0] |= KEYPAD_COIN;
 	if (keypad & KEYPAD_START) FBA_KEYPAD[0] |= KEYPAD_START;
 
-	if (keypad & KEYPAD_FIRE1) FBA_KEYPAD[0] |= KEYPAD_FIRE1;		// A
-	if (keypad & KEYPAD_FIRE2) FBA_KEYPAD[0] |= KEYPAD_FIRE2;		// B
-	if (keypad & KEYPAD_FIRE3) FBA_KEYPAD[0] |= KEYPAD_FIRE3;		// X
-	if (keypad & KEYPAD_FIRE4) FBA_KEYPAD[0] |= KEYPAD_FIRE4;		// Y
+	if (keypad & KEYPAD_FIRE1) FBA_KEYPAD[0] |= KEYPAD_FIRE2;		// A
+	if (keypad & KEYPAD_FIRE2) FBA_KEYPAD[0] |= KEYPAD_FIRE4;		// B
+	if (keypad & KEYPAD_FIRE3) FBA_KEYPAD[0] |= KEYPAD_FIRE1;		// X
+	if (keypad & KEYPAD_FIRE4) FBA_KEYPAD[0] |= KEYPAD_FIRE3;		// Y
+	// 太饶人了，搞半天才搞对
 	if (keypad & KEYPAD_FIRE5) FBA_KEYPAD[0] |= KEYPAD_FIRE5;		// L
 	if (keypad & KEYPAD_FIRE6) FBA_KEYPAD[0] |= KEYPAD_FIRE6;		// R
 
