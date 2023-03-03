@@ -93,9 +93,9 @@ void sdl_input_read() // called from do_keypad()
 			else if (event.key.keysym.sym == keymap.start1) keypad &= ~KEYPAD_START;
 
 			// handheld keypresses
-			if (event.key.keysym.sym == SDLK_LALT) keypc &= ~BUTTON_X;
-			else if (event.key.keysym.sym == SDLK_LCTRL) keypc &= ~BUTTON_A;
-			else if (event.key.keysym.sym == SDLK_LSHIFT) keypc &= ~BUTTON_B;
+			if (event.key.keysym.sym == SDLK_LALT) keypc &= ~BUTTON_B;
+			else if (event.key.keysym.sym == SDLK_LCTRL) keypc &= ~BUTTON_X;
+			else if (event.key.keysym.sym == SDLK_LSHIFT) keypc &= ~BUTTON_A;
 			else if (event.key.keysym.sym == SDLK_SPACE) keypc &= ~BUTTON_Y;
 			else if (event.key.keysym.sym == SDLK_TAB) keypc &= ~BUTTON_SL;
 			else if (event.key.keysym.sym == SDLK_BACKSPACE) keypc &= ~BUTTON_SR;
@@ -122,9 +122,9 @@ void sdl_input_read() // called from do_keypad()
 			else if (event.key.keysym.sym == keymap.start1) keypad |= KEYPAD_START;
 
 			// handheld keypresses
-			if (event.key.keysym.sym == SDLK_LALT) keypc |= BUTTON_X;
-			else if (event.key.keysym.sym == SDLK_LCTRL) keypc |= BUTTON_A;
-			else if (event.key.keysym.sym == SDLK_LSHIFT) keypc |= BUTTON_B;
+			if (event.key.keysym.sym == SDLK_LALT) keypc |= BUTTON_B;
+			else if (event.key.keysym.sym == SDLK_LCTRL) keypc |= BUTTON_X;
+			else if (event.key.keysym.sym == SDLK_LSHIFT) keypc |= BUTTON_A;
 			else if (event.key.keysym.sym == SDLK_SPACE) keypc |= BUTTON_Y;
 			else if (event.key.keysym.sym == SDLK_TAB) keypc |= BUTTON_SL;
 			else if (event.key.keysym.sym == SDLK_BACKSPACE) keypc |= BUTTON_SR;
