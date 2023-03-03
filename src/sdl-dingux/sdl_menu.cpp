@@ -72,7 +72,7 @@ static void gui_reset();
 /* data definitions */
 char *gui_KeyNames[] = {"A", "B", "X", "Y", "L", "R"};
 int gui_KeyData[] = {0, 1, 2, 3, 4, 5};
-int gui_KeyValue[] = {SDLK_LCTRL, SDLK_LSHIFT, SDLK_LALT, SDLK_SPACE, SDLK_TAB, SDLK_BACKSPACE};
+int gui_KeyValue[] = {SDLK_LALT, SDLK_LCTRL, SDLK_LSHIFT, SDLK_SPACE, SDLK_TAB, SDLK_BACKSPACE};
 char *gui_SoundDrvNames[] = {"No sound", "LIBAO", "SDL mutex", "SDL"};
 char *gui_SoundSampleRates[] = {"11025", "16000", "22050", "32000", "44100"};
 
