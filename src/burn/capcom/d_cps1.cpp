@@ -1348,7 +1348,50 @@ static struct BurnInputInfo wofchInputList[] =
  	{"Reset"            , BIT_DIGITAL  , &CpsReset,   "reset"     },
 };
 
-STDINPUTINFO(wofch)
+STDINPUTINFO(wofch);
+
+// Port from FBNeo 20230303
+
+static struct BurnInputInfo FfightaeInputList[] =
+{
+	{"P1 Coin"          , BIT_DIGITAL  , CpsInp018+0, "p1 coin"  },
+	{"P1 Start"         , BIT_DIGITAL  , CpsInp018+4, "p1 start" },
+	{"P1 Up"            , BIT_DIGITAL  , CpsInp001+3, "p1 up"    },
+	{"P1 Down"          , BIT_DIGITAL  , CpsInp001+2, "p1 down"  },
+	{"P1 Left"          , BIT_DIGITAL  , CpsInp001+1, "p1 left"  },
+	{"P1 Right"         , BIT_DIGITAL  , CpsInp001+0, "p1 right" },
+	{"P1 Attack"        , BIT_DIGITAL  , CpsInp001+4, "p1 fire 1"},
+	{"P1 Jump"          , BIT_DIGITAL  , CpsInp001+5, "p1 fire 2"},
+	{"P1 Special"       , BIT_DIGITAL  , CpsInp001+6, "p1 fire 3"},
+
+	{"P2 Coin"          , BIT_DIGITAL  , CpsInp018+1, "p2 coin"  },
+	{"P2 Start"         , BIT_DIGITAL  , CpsInp018+5, "p2 start" },
+	{"P2 Up"            , BIT_DIGITAL  , CpsInp000+3, "p2 up"    },
+	{"P2 Down"          , BIT_DIGITAL  , CpsInp000+2, "p2 down"  },
+	{"P2 Left"          , BIT_DIGITAL  , CpsInp000+1, "p2 left"  },
+	{"P2 Right"         , BIT_DIGITAL  , CpsInp000+0, "p2 right" },
+	{"P2 Attack"        , BIT_DIGITAL  , CpsInp000+4, "p2 fire 1"},
+	{"P2 Jump"          , BIT_DIGITAL  , CpsInp000+5, "p2 fire 2"},
+	{"P2 Special"       , BIT_DIGITAL  , CpsInp000+6, "p2 fire 3"},
+
+	{"P3 Start"         , BIT_DIGITAL  , CpsInp177+7, "p3 start"  },
+	{"P3 Up"            , BIT_DIGITAL  , CpsInp177+3, "p3 up"     },
+	{"P3 Down"          , BIT_DIGITAL  , CpsInp177+2, "p3 down"   },
+	{"P3 Left"          , BIT_DIGITAL  , CpsInp177+1, "p3 left"   },
+	{"P3 Right"         , BIT_DIGITAL  , CpsInp177+0, "p3 right"  },
+	{"P3 Attack"        , BIT_DIGITAL  , CpsInp177+4, "p3 fire 1" },
+	{"P3 Jump"          , BIT_DIGITAL  , CpsInp177+5, "p3 fire 2" },
+	{"P3 Special"       , BIT_DIGITAL  , CpsInp177+6, "p3 fire 3" },
+
+	{"Reset"            , BIT_DIGITAL  , &CpsReset,   "reset"     },
+	{"Diagnostic"       , BIT_DIGITAL  , CpsInp018+6, "diag"   },
+	{"Service"          , BIT_DIGITAL  , CpsInp018+2, "service"   },
+	{"Dip A"            , BIT_DIPSWITCH, &Cpi01A    , "dip"       },
+	{"Dip B"            , BIT_DIPSWITCH, &Cpi01C    , "dip"       },
+	{"Dip C"            , BIT_DIPSWITCH, &Cpi01E    , "dip"       },
+};
+
+STDINPUTINFO(Ffightae);
 
 // Dip Switch Definitions
 
@@ -3335,6 +3378,73 @@ static struct BurnDIPInfo WofhfhDIPList[]=
 };
 
 STDDIPINFO(Wofhfh);
+
+// Port from FBNeo 20230303 
+
+static struct BurnDIPInfo FfightaeDIPList[]=
+{
+	DIP_OFFSET(0x1d)
+
+	// Defaults
+	{0x00, 0xff, 0xff, 0x00, NULL                     },
+	{0x01, 0xff, 0xff, 0x0b, NULL                     },
+	{0x02, 0xff, 0xff, 0x60, NULL                     },
+
+	// Dip A
+	CPS1_COINAGE_1(0x00)
+
+	{0   , 0xfe, 0   , 2   , "2C to Start, 1 to Cont" },
+	{0x00, 0x01, 0x40, 0x00, "Off"                    },
+	{0x00, 0x01, 0x40, 0x40, "On"                     },
+
+	// Dip B
+	CPS1_DIFFICULTY_1(0x01)
+
+	{0   , 0xfe, 0   , 4   , "Difficulty 2"           },
+	{0x01, 0x01, 0x18, 0x00, "Easy"                   },
+	{0x01, 0x01, 0x18, 0x08, "Normal"                 },
+	{0x01, 0x01, 0x18, 0x10, "Hard"                   },
+	{0x01, 0x01, 0x18, 0x18, "Hardest"                },
+
+	{0   , 0xfe, 0   , 4   , "Bonus Life"             },
+	{0x01, 0x01, 0x60, 0x00, "100k"                   },
+	{0x01, 0x01, 0x60, 0x20, "200k"                   },
+	{0x01, 0x01, 0x60, 0x40, "100k and every 200k"    },
+	{0x01, 0x01, 0x60, 0x60, "None"                   },
+
+	// Dip C
+	{0   , 0xfe, 0   , 4   , "Lives"                  },
+	{0x02, 0x01, 0x03, 0x03, "1"                      },
+	{0x02, 0x01, 0x03, 0x00, "2"                      },
+	{0x02, 0x01, 0x03, 0x01, "3"                      },
+	{0x02, 0x01, 0x03, 0x02, "4"                      },
+
+	{0   , 0xfe, 0   , 2   , "Free Play"              },
+	{0x02, 0x01, 0x04, 0x00, "Off"                    },
+	{0x02, 0x01, 0x04, 0x04, "On"                     },
+
+	{0   , 0xfe, 0   , 2   , "Freeze"                 },
+	{0x02, 0x01, 0x08, 0x00, "Off"                    },
+	{0x02, 0x01, 0x08, 0x08, "On"                     },
+
+	{0   , 0xfe, 0   , 2   , "Flip"                   },
+	{0x02, 0x01, 0x10, 0x00, "Off"                    },
+	{0x02, 0x01, 0x10, 0x10, "On"                     },
+
+	{0   , 0xfe, 0   , 2   , "Demo Sound"             },
+	{0x02, 0x01, 0x20, 0x00, "Off"                    },
+	{0x02, 0x01, 0x20, 0x20, "On"                     },
+
+	{0   , 0xfe, 0   , 2   , "Allow Continue"         },
+	{0x02, 0x01, 0x40, 0x00, "Off"                    },
+	{0x02, 0x01, 0x40, 0x40, "On"                     },
+
+	{0   , 0xfe, 0   , 2   , "Game Mode"              },
+	{0x02, 0x01, 0x80, 0x00, "Game"                   },
+	{0x02, 0x01, 0x80, 0x80, "Test"                   },
+};
+
+STDDIPINFO(Ffightae);
 
 // Rom Definitions
 
@@ -7621,31 +7731,6 @@ static struct BurnRomInfo Cps1frogRomDesc[] = {
 STD_ROM_PICK(Cps1frog)
 STD_ROM_FN(Cps1frog)
 
-//添加wofch BY GXB 20221219
-static struct BurnRomInfo wofchRomDesc[] = {
-	{ "tk2=ch=_23.8f",		0x080000, 0x2BCE786A, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
-	{ "tk2=ch=_22.7f",		0x080000, 0xE0C80D47, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
-
-	{ "tk2-1m.3a",		0x080000, 0x0D9CB9BF, BRF_GRA | CPS1_TILES },
-	{ "tk2-3m.5a",		0x080000, 0x45227027, BRF_GRA | CPS1_TILES },
-	{ "tk2-2m.4a",		0x080000, 0xC5CA2460, BRF_GRA | CPS1_TILES },
-	{ "tk2-4m.6a",		0x080000, 0xE349551C, BRF_GRA | CPS1_TILES },
-	{ "tk2=ch=_05.7a",		0x080000, 0xE4A44D53, BRF_GRA | CPS1_TILES },
-	{ "tk2=ch=_06.8a",		0x080000, 0x58066BA8, BRF_GRA | CPS1_TILES },
-	{ "tk2=ch=_07.9a",		0x080000, 0xCC9006C9, BRF_GRA | CPS1_TILES },
-	{ "tk2=ch=_08.10a",		0x080000, 0xD4A19A02, BRF_GRA | CPS1_TILES },
-
-	{ "tk2_qa.5k",		0x020000, 0xC9183A0D, BRF_PRG | CPS1_Z80_PROGRAM },
-
-	{ "tk2-q1.1k",		0x080000, 0x611268CF, BRF_SND | CPS1_QSOUND_SAMPLES },
-	{ "tk2-q2.2k",		0x080000, 0x20F55CA9, BRF_SND | CPS1_QSOUND_SAMPLES },
-	{ "tk2-q3.3k",		0x080000, 0xBFCF6F52, BRF_SND | CPS1_QSOUND_SAMPLES },
-	{ "tk2-q4.4k",		0x080000, 0x36642E88, BRF_SND | CPS1_QSOUND_SAMPLES },
-};
-
-STD_ROM_PICK(wofch)
-STD_ROM_FN(wofch)
-
 // Game config
 
 typedef void (*KabukiDecode)();
@@ -7820,6 +7905,31 @@ static const struct GameConfig ConfigTable[] =
 	{ "sfzch"   , CPS_B_21_DEF, mapper_sfzch , 0, NULL                },
 	{ "cps1frog", CPS_B_04    , mapper_frog  , 0, NULL                },
 	{ "wofch"	, CPS_B_21_DEF, mapper_sfzch , 0, wof_decode          }, // 添加wofch by GXB 20221219
+	// Port from FBNeo 20230303
+	{ "wofchdx"       , CPS_B_21_DEF, mapper_sfzch , 0, wof_decode          },
+	{ "wofchp"        , CPS_B_21_DEF, mapper_sfzch , 0, wof_decode          },
+	{ "ffightae"      , CPS_B_21_DEF, mapper_S224B , 0, NULL                },
+	{ "ffightaemgc"   , CPS_B_21_DEF, mapper_S224B , 0, NULL                },
+	{ "captcommp4"    , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
+	{ "captcommpwx"   , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
+	{ "captcomm2y"    , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
+	{ "captcommpjy"   , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
+	{ "captcommpmy"   , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
+	{ "captcommc"     , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
+	{ "captre"        , CPS_B_21_BT3, mapper_CC63B , 0, NULL                },
+	{ "dinods"        , CPS_B_21_QS2, mapper_CD63B , 0, dino_decode         },
+	{ "dinosyn"       , CPS_B_21_QS2, mapper_CD63B , 0, dino_decode         },
+	{ "dinogae"       , CPS_B_21_QS2, mapper_CD63B , 0, dino_decode         },
+	{ "dinotj"        , CPS_B_21_QS2, mapper_CD63B , 0, dino_decode         },
+	{ "dinotw"        , CPS_B_21_QS2, mapper_CD63B , 0, dino_decode         },
+	{ "dinore"        , CPS_B_21_QS2, mapper_CD63B , 0, dino_decode         },
+	{ "wofjdr"        , CPS_B_21_QS1, mapper_TK263B, 0, wof_decode          },
+	{ "wofdr2020"     , CPS_B_21_QS1, mapper_TK263B, 0, wof_decode          },
+	{ "sf2mix"        , CPS_B_21_DEF, mapper_S9263B, 0, NULL                },
+	{ "punisherly"    , CPS_B_21_QS3, mapper_PS63B , 0, punisher_decode     },
+	{ "punisherhr"    , CPS_B_21_QS3, mapper_PS63B , 0, punisher_decode     },
+	{ "mercsc"        , CPS_B_12    , mapper_O224B , 0, NULL                },
+	{ "knightsc"      , CPS_B_21_BT4, mapper_KR63B , 0, NULL                },
 	
 #if defined INCLUDE_HACKS
 	// Not included games
@@ -9109,32 +9219,6 @@ static int DrvExit()
 	BootlegSpriteRam = NULL;
 	
 	return 0;
-}
-
-// 添加wofch by GXB 20221219
-static void wofchPatch()
-{
-	// Fix blood color
-    CpsRom[0x7715] = 0x60;
-    // Enable 3 Players, F1C100S机能弱，暂不开启
-    //CpsRom[0xED928] = 0x1;
-    // Enable hidden mode
-    CpsRom[0xED946] = 0x1;
-}
-
-static INT32 wofchInit()
-{
-	INT32 nRet = 0;
-
-	Cps1Qs = 1;
-	
-	AmendProgRomCallback = wofchPatch;
-	
-	nRet = TwelveMhzInit();
-	
-	Cps = 3;
-
-	return nRet;
 }
 
 // Driver Definitions
@@ -10689,7 +10773,49 @@ struct BurnDriver BurnDrvCpsCps1frog = {
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
 };
 
-// 添加wofch BY GXB 20221219
+//添加wofch BY GXB 20221219
+
+static void wofchPatch()
+{
+    CpsRom[0x7715] = 0x60;		// Fix blood color
+    //CpsRom[0xED928] = 0x1; 		// Enable 3 Players
+    CpsRom[0xED946] = 0x1;		// Enable hidden mode
+}
+
+static INT32 wofchInit()
+{
+	INT32 nRet = 0;
+	Cps1Qs = 1;
+	AmendProgRomCallback = wofchPatch;
+	nRet = TwelveMhzInit();
+	Cps = 3;
+	return nRet;
+}
+
+static struct BurnRomInfo wofchRomDesc[] = {
+	{ "tk2=ch=_23.8f",		0x080000, 0x2BCE786A, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+	{ "tk2=ch=_22.7f",		0x080000, 0xE0C80D47, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "tk2-1m.3a",		0x080000, 0x0D9CB9BF, BRF_GRA | CPS1_TILES },
+	{ "tk2-3m.5a",		0x080000, 0x45227027, BRF_GRA | CPS1_TILES },
+	{ "tk2-2m.4a",		0x080000, 0xC5CA2460, BRF_GRA | CPS1_TILES },
+	{ "tk2-4m.6a",		0x080000, 0xE349551C, BRF_GRA | CPS1_TILES },
+	{ "tk2=ch=_05.7a",		0x080000, 0xE4A44D53, BRF_GRA | CPS1_TILES },
+	{ "tk2=ch=_06.8a",		0x080000, 0x58066BA8, BRF_GRA | CPS1_TILES },
+	{ "tk2=ch=_07.9a",		0x080000, 0xCC9006C9, BRF_GRA | CPS1_TILES },
+	{ "tk2=ch=_08.10a",		0x080000, 0xD4A19A02, BRF_GRA | CPS1_TILES },
+
+	{ "tk2_qa.5k",		0x020000, 0xC9183A0D, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "tk2-q1.1k",		0x080000, 0x611268CF, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "tk2-q2.2k",		0x080000, 0x20F55CA9, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "tk2-q3.3k",		0x080000, 0xBFCF6F52, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "tk2-q4.4k",		0x080000, 0x36642E88, BRF_SND | CPS1_QSOUND_SAMPLES },
+};
+
+STD_ROM_PICK(wofch)
+STD_ROM_FN(wofch)
+
 struct BurnDriver BurnDrvCpswofch = {
 	"wofch", "wofch", NULL, "2022",
 	"Tun Shi Tian Di 2 - Chi Bi Zhi Zhan (Jia Yong Ji Ban)\0", "Hack", "Capcom", "CPS1 / QSound",
@@ -10699,7 +10825,908 @@ struct BurnDriver BurnDrvCpswofch = {
 	wofchInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
 };
+
+// Hacks from FBNEO 20230303	
+
+static struct BurnRomInfo WofchdxRomDesc[] = {
+	{ "tk2(ch)dx_23.8f", 0x080000, 0xa1696ca4, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+	{ "tk2(ch)dx_22.7f", 0x080000, 0x00d388c0, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "tk2-1m.3a",     0x080000, 0x0d9cb9bf, BRF_GRA | CPS1_TILES },
+	{ "tk2-3m.5a",     0x080000, 0x45227027, BRF_GRA | CPS1_TILES },
+	{ "tk2-2m.4a",     0x080000, 0xc5ca2460, BRF_GRA | CPS1_TILES },
+	{ "tk2-4m.6a",     0x080000, 0xe349551c, BRF_GRA | CPS1_TILES },
+	{ "tk2=ch=_05.7a", 0x080000, 0xe4a44d53, BRF_GRA | CPS1_TILES },
+	{ "tk2=ch=_06.8a", 0x080000, 0x58066ba8, BRF_GRA | CPS1_TILES },
+	{ "tk2=ch=_07.9a", 0x080000, 0xcc9006c9, BRF_GRA | CPS1_TILES }, // 1 byte different from wofj, pcb verified
+	{ "tk2=ch=_08.10a",0x080000, 0xd4a19a02, BRF_GRA | CPS1_TILES },
 	
+	{ "tk2_qa.5k",     0x020000, 0xc9183a0d, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "tk2-q1.1k",     0x080000, 0x611268cf, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "tk2-q2.2k",     0x080000, 0x20f55ca9, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "tk2-q3.3k",     0x080000, 0xbfcf6f52, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "tk2-q4.4k",     0x080000, 0x36642e88, BRF_SND | CPS1_QSOUND_SAMPLES },
+
+};
+
+STD_ROM_PICK(Wofchdx)
+STD_ROM_FN(Wofchdx)
+
+struct BurnDriver BurnDrvCpsWofchdx = {
+	"wofchdx", "wofch", NULL, "2018",
+	"Sangokushi III Gaiden: Kakou-On's Revenge DX (hack)\0", NULL, "hack", "CPS Changer",
+	L"\u4E09\u56FD\u5FD7 III \u5916\u4F20: \u590F\u4FAF\u6069\u7684\u590D\u4EC7\0Sangokushi III Gaiden: Kakou-On's Revenge DX (hack)\0", NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE, 3, HARDWARE_CAPCOM_CPSCHANGER,
+	NULL, WofchdxRomInfo, WofchdxRomName, WofchpInputInfo, NULL,
+	WofchInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+	
+// Hacked by rockywall.
+// Patch can be found at: https://www.ppxclub.com/forum.php?mod=viewthread&tid=693016
+static struct BurnRomInfo wofchpRomDesc[] = {
+	{ "eh-23.8f", 0x080000, 0x2bce786a, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+	{ "eh-22.7f", 0x080000, 0xe0c80d47, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "tk2-1m.3a",     0x080000, 0x0d9cb9bf, BRF_GRA | CPS1_TILES },
+	{ "tk2-3m.5a",     0x080000, 0x45227027, BRF_GRA | CPS1_TILES },
+	{ "tk2-2m.4a",     0x080000, 0xc5ca2460, BRF_GRA | CPS1_TILES },
+	{ "tk2-4m.6a",     0x080000, 0xe349551c, BRF_GRA | CPS1_TILES },
+	{ "tk2=ch=_05.7a", 0x080000, 0xe4a44d53, BRF_GRA | CPS1_TILES },
+	{ "tk2=ch=_06.8a", 0x080000, 0x58066ba8, BRF_GRA | CPS1_TILES },
+	{ "tk2=ch=_07.9a", 0x080000, 0xcc9006c9, BRF_GRA | CPS1_TILES }, // 1 byte different from wofj, pcb verified
+	{ "tk2=ch=_08.10a",0x080000, 0xd4a19a02, BRF_GRA | CPS1_TILES },
+	
+	{ "tk2_qa.5k",     0x020000, 0xc9183a0d, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "tk2-q1.1k",     0x080000, 0x611268cf, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "tk2-q2.2k",     0x080000, 0x20f55ca9, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "tk2-q3.3k",     0x080000, 0xbfcf6f52, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "tk2-q4.4k",     0x080000, 0x36642e88, BRF_SND | CPS1_QSOUND_SAMPLES },
+};
+
+STD_ROM_PICK(wofchp)
+STD_ROM_FN(wofchp)
+
+struct BurnDriver BurnDrvCpswofchp = {
+	"wofchp", "wofch", NULL, "2019",
+	"Tenchi wo Kurau II - Sekiheki no Tatakai (PS/SS Version)\0", NULL, "hack", "CPS Changer",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE, 3, HARDWARE_CAPCOM_CPSCHANGER,
+	NULL, wofchpRomInfo, wofchpRomName, WofchpInputInfo, NULL,
+	WofchInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+
+// Final Fight 30th Anniversary Edition (Hacked by Grego)
+// Patch can be found at: https://github.com/originalgrego/FinalFightAE-Installer
+
+static struct BurnRomInfo FfightaeRomDesc[] = {
+	{ "ff-23m.8h",     0x080000, 0x86def74f, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+	{ "ff-22m.7h",     0x080000, 0xcbdd8689, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "ff-5m.7a",      0x080000, 0x91a909bd, BRF_GRA | CPS1_TILES },
+	{ "ff-7m.9a",      0x080000, 0x89f8b4cd, BRF_GRA | CPS1_TILES },
+	{ "ff-1m.3a",      0x080000, 0xd5469303, BRF_GRA | CPS1_TILES },
+	{ "ff-3m.5a",      0x080000, 0x0c6302bf, BRF_GRA | CPS1_TILES },
+
+	{ "ff_09.12b",     0x010000, 0xb8367eb5, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "ff_18.11c",     0x020000, 0x375c66e7, BRF_SND | CPS1_OKIM6295_SAMPLES },
+	{ "ff_19.12c",     0x020000, 0x1ef137f9, BRF_SND | CPS1_OKIM6295_SAMPLES },
+};
+
+STD_ROM_PICK(Ffightae)
+STD_ROM_FN(Ffightae)
+
+struct BurnDriver BurnDrvCpsFfightae = {
+	"ffightae", "ffight", NULL, "2019",
+	"Final Fight 30th Anniversary Edition\0", NULL, "hack", "CPS1",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 3, HARDWARE_CAPCOM_CPS1,
+	NULL, FfightaeRomInfo, FfightaeRomName, FfightaeInputInfo, FfightaeDIPInfo,
+	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+
+// Final Fight 30th Anniversary Edition (Mad Gear's City Hack), hacked by ZombieMaster with the FFAEE Editor
+// Edtior Link: https://gamehackfan.github.io/ffaee
+
+static struct BurnRomInfo FfightaemgcRomDesc[] = {
+	{ "ffaemgc-23m.8h",     0x080000, 0xc16be586, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+	{ "ffaemgc-22m.7h",     0x080000, 0x4994c1c8, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "ffaemgc-5m.7a",      0x080000, 0x91a909bd, BRF_GRA | CPS1_TILES },
+	{ "ffaemgc-7m.9a",      0x080000, 0x89f8b4cd, BRF_GRA | CPS1_TILES },
+	{ "ffaemgc-1m.3a",      0x080000, 0xd5469303, BRF_GRA | CPS1_TILES },
+	{ "ffaemgc-3m.5a",      0x080000, 0x0c6302bf, BRF_GRA | CPS1_TILES },
+
+	{ "ff_09.12b",          0x010000, 0xb8367eb5, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "ff_18.11c",          0x020000, 0x375c66e7, BRF_SND | CPS1_OKIM6295_SAMPLES },
+	{ "ff_19.12c",          0x020000, 0x1ef137f9, BRF_SND | CPS1_OKIM6295_SAMPLES },
+};
+
+STD_ROM_PICK(Ffightaemgc)
+STD_ROM_FN(Ffightaemgc)
+
+struct BurnDriver BurnDrvCpsFfightaemgc = {
+	"ffightaemgc", "ffight", NULL, "2022",
+	"Final Fight 30th Anniversary Edition (Mad Gear's City Hack)\0", NULL, "ZombieMaster", "CPS1",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 3, HARDWARE_CAPCOM_CPS1,
+	NULL, FfightaemgcRomInfo, FfightaemgcRomName, FfightaeInputInfo, FfightaeDIPInfo,
+	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+
+// Captain Commando (Enhanced edition 1 V 4, Hack)
+// Hacked by unknown
+// GOTVG 2015-12-05
+
+static struct BurnRomInfo Captcommp4RomDesc[] = {
+	{ "captcommp4_23d.8f",  0x080000, 0x40e8a541, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+	{ "captcommp4_22d.7f",  0x080000, 0xf1292a02, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+	{ "cc_24d.9e",     		0x020000, 0x680e543f, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "cc_28d.9f",     		0x020000, 0x8820039f, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+
+	{ "cc-5m.3a",      		0x080000, 0x7261d8ba, BRF_GRA | CPS1_TILES },
+	{ "cc-7m.5a",      		0x080000, 0x6a60f949, BRF_GRA | CPS1_TILES },
+	{ "cc-1m.4a",      		0x080000, 0x00637302, BRF_GRA | CPS1_TILES },
+	{ "cc-3m.6a",      		0x080000, 0xcc87cf61, BRF_GRA | CPS1_TILES },
+	{ "cc-6m.7a",      		0x080000, 0x28718bed, BRF_GRA | CPS1_TILES },
+	{ "cc-8m.9a",      		0x080000, 0xd4acc53a, BRF_GRA | CPS1_TILES },
+	{ "cc-2m.8a",      		0x080000, 0x0c69f151, BRF_GRA | CPS1_TILES },
+	{ "cc-4m.10a",     		0x080000, 0x1f9ebb97, BRF_GRA | CPS1_TILES },
+
+	{ "cc_09.11a",     		0x010000, 0x698e8b58, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "cc_18.11c",     		0x020000, 0x6de2c2db, BRF_SND | CPS1_OKIM6295_SAMPLES },
+	{ "cc_19.12c",     		0x020000, 0xb99091ae, BRF_SND | CPS1_OKIM6295_SAMPLES },
+};
+
+STD_ROM_PICK(Captcommp4)
+STD_ROM_FN(Captcommp4)
+
+struct BurnDriver BurnDrvCpsCaptcommp4 = {
+	"captcommp4", "captcomm", NULL, "2015-12-05",
+	"Captain Commando (Enhanced edition 1 V 4, Hack)\0", NULL, "hack", "CPS1",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS1,
+	NULL, Captcommp4RomInfo, Captcommp4RomName, CaptcommInputInfo, CaptcommDIPInfo,
+	Cps1RasterInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+
+// Captain Commando (Unlimited Bullet)
+// Hack by JingGai
+// GOTVG 20210428
+
+static struct BurnRomInfo CaptcommpwxRomDesc[] = {
+	{ "cce_pwx.bin",	0x300000, 0x765ad7bf, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "cc-5m.3a",		0x080000, 0x7261d8ba, BRF_GRA | CPS1_TILES },
+	{ "cc-7m.5a",		0x080000, 0x6a60f949, BRF_GRA | CPS1_TILES },
+	{ "cc-1m.4a",		0x080000, 0x00637302, BRF_GRA | CPS1_TILES },
+	{ "cc-3m.6a",		0x080000, 0xcc87cf61, BRF_GRA | CPS1_TILES },
+	{ "cc-6m.7a",		0x080000, 0x28718bed, BRF_GRA | CPS1_TILES },
+	{ "cc-8m.9a",		0x080000, 0xd4acc53a, BRF_GRA | CPS1_TILES },
+	{ "cc-2m.8a",		0x080000, 0x0c69f151, BRF_GRA | CPS1_TILES },
+	{ "cc-4m.10a",		0x080000, 0x1f9ebb97, BRF_GRA | CPS1_TILES },
+
+	{ "cc_09.11a",		0x010000, 0x698e8b58, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "cc_18.11c",		0x020000, 0x6de2c2db, BRF_SND | CPS1_OKIM6295_SAMPLES },
+	{ "cc_19.12c",		0x020000, 0xb99091ae, BRF_SND | CPS1_OKIM6295_SAMPLES },
+};
+
+STD_ROM_PICK(Captcommpwx)
+STD_ROM_FN(Captcommpwx)
+
+struct BurnDriver BurnDrvCpsCaptcommpwx = {
+	"captcommpwx", "captcomm", NULL, "2021",
+	"Captain Commando (Unlimited Bullet)\0", NULL, "hack", "CPS1",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS1,
+	NULL, CaptcommpwxRomInfo, CaptcommpwxRomName, CaptcommInputInfo, CaptcommDIPInfo,  
+	Cps1RasterInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+
+// Captain Commando (Er Ye)
+// Hack by JingGai
+// GOTVG 20221124
+
+static struct BurnRomInfo Captcomm2yRomDesc[] = {
+	{ "cce_2y.bin",		0x300000, 0xbe8dbe46, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "cc-5m.3a",		0x080000, 0x7261d8ba, BRF_GRA | CPS1_TILES },
+	{ "cc-7m.5a",		0x080000, 0x6a60f949, BRF_GRA | CPS1_TILES },
+	{ "cc-1m.4a",		0x080000, 0x00637302, BRF_GRA | CPS1_TILES },
+	{ "cc-3m.6a",		0x080000, 0xcc87cf61, BRF_GRA | CPS1_TILES },
+	{ "cc-6m.7a",		0x080000, 0x28718bed, BRF_GRA | CPS1_TILES },
+	{ "cc-8m.9a",		0x080000, 0xd4acc53a, BRF_GRA | CPS1_TILES },
+	{ "cc-2m.8a",		0x080000, 0x0c69f151, BRF_GRA | CPS1_TILES },
+	{ "cc-4m.10a",		0x080000, 0x1f9ebb97, BRF_GRA | CPS1_TILES },
+
+	{ "cc_09.11a",		0x010000, 0x698e8b58, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "cc_18.11c",		0x020000, 0x6de2c2db, BRF_SND | CPS1_OKIM6295_SAMPLES },
+	{ "cc_19.12c",		0x020000, 0xb99091ae, BRF_SND | CPS1_OKIM6295_SAMPLES },
+};
+
+STD_ROM_PICK(Captcomm2y)
+STD_ROM_FN(Captcomm2y)
+
+struct BurnDriver BurnDrvCpsCaptcomm2y = {
+	"captcomm2y", "captcomm", NULL, "2022",
+	"Captain Commando (Er Ye)\0", NULL, "hack", "CPS1",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS1,
+	NULL, Captcomm2yRomInfo, Captcomm2yRomName, CaptcommInputInfo, CaptcommDIPInfo,
+	Cps1RasterInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+
+// Captain Commando (Elite Competition)
+// Hack by JingGai
+// GOTVG 20221121
+
+static struct BurnRomInfo CaptcommpjyRomDesc[] = {
+	{ "cce_pjy.bin",	0x300000, 0x3aa350c9, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "cc-5m.3a",		0x080000, 0x7261d8ba, BRF_GRA | CPS1_TILES },
+	{ "cc-7m.5a",		0x080000, 0x6a60f949, BRF_GRA | CPS1_TILES },
+	{ "cc-1m.4a",		0x080000, 0x00637302, BRF_GRA | CPS1_TILES },
+	{ "cc-3m.6a",		0x080000, 0xcc87cf61, BRF_GRA | CPS1_TILES },
+	{ "cc-6m.7a",		0x080000, 0x28718bed, BRF_GRA | CPS1_TILES },
+	{ "cc-8m.9a",		0x080000, 0xd4acc53a, BRF_GRA | CPS1_TILES },
+	{ "cc-2m.8a",		0x080000, 0x0c69f151, BRF_GRA | CPS1_TILES },
+	{ "cc-4m.10a",		0x080000, 0x1f9ebb97, BRF_GRA | CPS1_TILES },
+
+	{ "cc_09.11a",		0x010000, 0x698e8b58, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "cc_18.11c",		0x020000, 0x6de2c2db, BRF_SND | CPS1_OKIM6295_SAMPLES },
+	{ "cc_19.12c",		0x020000, 0xb99091ae, BRF_SND | CPS1_OKIM6295_SAMPLES },
+};
+
+STD_ROM_PICK(Captcommpjy)
+STD_ROM_FN(Captcommpjy)
+
+struct BurnDriver BurnDrvCpsCaptcommpjy = {
+	"captcommpjy", "captcomm", NULL, "2022",
+	"Captain Commando (Elite Competition)\0", NULL, "hack", "CPS1",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS1,
+	NULL, CaptcommpjyRomInfo, CaptcommpjyRomName, CaptcommInputInfo, CaptcommDIPInfo,
+	Cps1RasterInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+
+// Captain Commando (Incubus)
+// Hack by JingGai
+// GOTVG 20220718
+
+static struct BurnRomInfo CaptcommpmyRomDesc[] = {
+	{ "cce_pmy.bin",	0x300000, 0x6b3087bd, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "cc-5m.3a",		0x080000, 0x7261d8ba, BRF_GRA | CPS1_TILES },
+	{ "cc-7m.5a",		0x080000, 0x6a60f949, BRF_GRA | CPS1_TILES },
+	{ "cc-1m.4a",		0x080000, 0x00637302, BRF_GRA | CPS1_TILES },
+	{ "cc-3m.6a",		0x080000, 0xcc87cf61, BRF_GRA | CPS1_TILES },
+	{ "cc-6m.7a",		0x080000, 0x28718bed, BRF_GRA | CPS1_TILES },
+	{ "cc-8m.9a",		0x080000, 0xd4acc53a, BRF_GRA | CPS1_TILES },
+	{ "cc-2m.8a",		0x080000, 0x0c69f151, BRF_GRA | CPS1_TILES },
+	{ "cc-4m.10a",		0x080000, 0x1f9ebb97, BRF_GRA | CPS1_TILES },
+
+	{ "cc_09.11a",		0x010000, 0x698e8b58, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "cc_18.11c",		0x020000, 0x6de2c2db, BRF_SND | CPS1_OKIM6295_SAMPLES },
+	{ "cc_19.12c",		0x020000, 0xb99091ae, BRF_SND | CPS1_OKIM6295_SAMPLES },
+};
+
+STD_ROM_PICK(Captcommpmy)
+STD_ROM_FN(Captcommpmy)
+
+struct BurnDriver BurnDrvCpsCaptcommpmy = {
+	"captcommpmy", "captcomm", NULL, "2022",
+	"Captain Commando (Incubus)\0", NULL, "hack", "CPS1",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS1,
+	NULL, CaptcommpmyRomInfo, CaptcommpmyRomName, CaptcommInputInfo, CaptcommDIPInfo,
+	Cps1RasterInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+
+// Captain Commando Readjusted, hacked by GameHackFan 
+// source: https://gamehackfan.github.io/captre/
+
+static struct BurnRomInfo CaptreRomDesc[] = {
+	{ "cce_re.10f",    0x200000, 0x591ea997, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "cc-5re.3a",     0x080000, 0xd78482a8, BRF_GRA | CPS1_TILES },
+	{ "cc-7re.5a",     0x080000, 0xfe4f474d, BRF_GRA | CPS1_TILES },
+	{ "cc-1re.4a",     0x080000, 0xe45c8021, BRF_GRA | CPS1_TILES },
+	{ "cc-3re.6a",     0x080000, 0x0d7f9314, BRF_GRA | CPS1_TILES },
+	{ "cc-6re.7a",     0x080000, 0xbd687ae8, BRF_GRA | CPS1_TILES },
+	{ "cc-8re.9a",     0x080000, 0xf222c02e, BRF_GRA | CPS1_TILES },
+	{ "cc-2re.8a",     0x080000, 0x8296149a, BRF_GRA | CPS1_TILES },
+	{ "cc-4re.10a",    0x080000, 0xa7b9288e, BRF_GRA | CPS1_TILES },
+
+	{ "cc_09.11a",     0x010000, 0x698e8b58, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "cc_18.11c",     0x020000, 0x6de2c2db, BRF_SND | CPS1_OKIM6295_SAMPLES },
+	{ "cc_19.12c",     0x020000, 0xb99091ae, BRF_SND | CPS1_OKIM6295_SAMPLES },
+};
+
+STD_ROM_PICK(Captre)
+STD_ROM_FN(Captre)
+
+struct BurnDriver BurnDrvCpsCaptre = {
+	"captre", "captcomm", NULL, "2022",
+	"Captain Commando Readjusted (Hack, v1.0)\0", NULL, "GameHackFan", "CPS1",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS1,
+	NULL, CaptreRomInfo, CaptreRomName, CaptcommInputInfo, CaptcommDIPInfo,
+	Cps1RasterInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+
+// Cadillacs and Dinosaurs (God of War Edition, Hack)
+// Hacked by Ngs
+// GOTVG 2021/10/07
+
+static struct BurnRomInfo DinodsRomDesc[] = {
+	{ "cde_ds.bin",		0x200000, 0x4639b278, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "cd-1m.3a",		0x080000, 0x8da4f917, BRF_GRA | CPS1_TILES },
+	{ "cd-3m.5a",		0x080000, 0x6c40f603, BRF_GRA | CPS1_TILES },
+	{ "cd-2m.4a",		0x080000, 0x09c8fc2d, BRF_GRA | CPS1_TILES },
+	{ "cd-4m.6a",		0x080000, 0x637ff38f, BRF_GRA | CPS1_TILES },
+	{ "cd-5m.7a",		0x080000, 0x470befee, BRF_GRA | CPS1_TILES },
+	{ "cd-7m.9a",		0x080000, 0x22bfb7a3, BRF_GRA | CPS1_TILES },
+	{ "cd-6m.8a",		0x080000, 0xe7599ac4, BRF_GRA | CPS1_TILES },
+	{ "cd-8m.10a",		0x080000, 0x211b4b15, BRF_GRA | CPS1_TILES },
+
+	{ "cd_q.5k",		0x020000, 0x605fdb0b, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "cd-q1.1k",		0x080000, 0x60927775, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "cd-q2.2k",		0x080000, 0x770f4c47, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "cd-q3.3k",		0x080000, 0x2f273ffc, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "cd-q4.4k",		0x080000, 0x2c67821d, BRF_SND | CPS1_QSOUND_SAMPLES },
+};
+
+STD_ROM_PICK(Dinods)
+STD_ROM_FN(Dinods)
+
+struct BurnDriver BurnDrvCpsDinods = {
+	"dinods", "dino", NULL, "2021",
+	"Cadillacs and Dinosaurs (God of War Edition, Hack)\0", NULL, "hack", "CPS1 / QSound",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
+	NULL, DinodsRomInfo, DinodsRomName, DinoInputInfo, DinoDIPInfo,
+	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+
+// Cadillacs and Dinosaurs (2020 Commemorative Edition, Hack)
+// Hack by GeYu
+// GOTVG 20221221
+
+static struct BurnRomInfo DinosynRomDesc[] = {
+	{ "cdj_syn.bin",	0x200000, 0x1ab64156, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "cd_01.3a",		0x080000, 0x8da4f917, BRF_GRA | CPS1_TILES },
+	{ "cd_02.4a",		0x080000, 0x6c40f603, BRF_GRA | CPS1_TILES },
+	{ "cd_03.5a",		0x080000, 0x09c8fc2d, BRF_GRA | CPS1_TILES },
+	{ "cd_04.6a",		0x080000, 0x637ff38f, BRF_GRA | CPS1_TILES },
+	{ "cd_05.7a",		0x080000, 0x470befee, BRF_GRA | CPS1_TILES },
+	{ "cd_06.8a",		0x080000, 0x22bfb7a3, BRF_GRA | CPS1_TILES },
+	{ "cd_07.9a",		0x080000, 0xe7599ac4, BRF_GRA | CPS1_TILES },
+	{ "cd_08.10a",		0x080000, 0x211b4b15, BRF_GRA | CPS1_TILES },
+
+	{ "cd_q.5k",		0x020000, 0x605fdb0b, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "cd-q1.1k",		0x080000, 0x60927775, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "cd-q2.2k",		0x080000, 0x770f4c47, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "cd-q3.3k",		0x080000, 0x2f273ffc, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "cd-q4.4k",		0x080000, 0x2c67821d, BRF_SND | CPS1_QSOUND_SAMPLES },
+};
+
+STD_ROM_PICK(Dinosyn)
+STD_ROM_FN(Dinosyn)
+
+struct BurnDriver BurnDrvCpsDinosyn = {
+	"dinosyn", "dino", NULL, "2022",
+	"Cadillacs and Dinosaurs (2020 Commemorative Edition, Hack)\0", NULL, "hack", "CPS1 / QSound",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
+	NULL, DinosynRomInfo, DinosynRomName, DinoInputInfo, DinoDIPInfo,
+	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+
+// Cadillacs and Dinosaurs (GOTVG 10th Anniversary Edition, Hack)
+// Hack by GeYu
+// GOTVG 20220605
+
+static struct BurnRomInfo DinogaeRomDesc[] = {
+	{ "cdu_ae.bin",		0x200000, 0x364e020c, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "cd-1m.3a",		0x080000, 0x8da4f917, BRF_GRA | CPS1_TILES },
+	{ "cd-3m.5a",		0x080000, 0x6c40f603, BRF_GRA | CPS1_TILES },
+	{ "cd-2m.4a",		0x080000, 0x09c8fc2d, BRF_GRA | CPS1_TILES },
+	{ "cd-4m.6a",		0x080000, 0x637ff38f, BRF_GRA | CPS1_TILES },
+	{ "cd-5m.7a",		0x080000, 0x470befee, BRF_GRA | CPS1_TILES },
+	{ "cd-7m.9a",		0x080000, 0x22bfb7a3, BRF_GRA | CPS1_TILES },
+	{ "cd-6m.8a",		0x080000, 0xe7599ac4, BRF_GRA | CPS1_TILES },
+	{ "cd-8m.10a",		0x080000, 0x211b4b15, BRF_GRA | CPS1_TILES },
+
+	{ "cd_q.5k",		0x020000, 0x605fdb0b, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "cd-q1.1k",		0x080000, 0x60927775, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "cd-q2.2k",		0x080000, 0x770f4c47, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "cd-q3.3k",		0x080000, 0x2f273ffc, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "cd-q4.4k",		0x080000, 0x2c67821d, BRF_SND | CPS1_QSOUND_SAMPLES },
+};
+
+STD_ROM_PICK(Dinogae)
+STD_ROM_FN(Dinogae)
+
+struct BurnDriver BurnDrvCpsDinogae = {
+	"dinogae", "dino", NULL, "2022",
+	"Cadillacs and Dinosaurs (GOTVG 10th Anniversary Edition, Hack)\0", NULL, "hack", "CPS1 / QSound",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
+	NULL, DinogaeRomInfo, DinogaeRomName, DinoInputInfo, DinoDIPInfo,
+	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+
+// Cadillacs and Dinosaurs (Tian Jiang, Hack)
+// Hack by NGS
+// GOTVG 20220710
+
+static struct BurnRomInfo DinotjRomDesc[] = {
+	{ "cde_tj.bin",		0x200000, 0x035aa2cf, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "cd-1m.3a",		0x080000, 0x8da4f917, BRF_GRA | CPS1_TILES },
+	{ "cd-3m.5a",		0x080000, 0x6c40f603, BRF_GRA | CPS1_TILES },
+	{ "cd-2m.4a",		0x080000, 0x09c8fc2d, BRF_GRA | CPS1_TILES },
+	{ "cd-4m.6a",		0x080000, 0x637ff38f, BRF_GRA | CPS1_TILES },
+	{ "cd-5m.7a",		0x080000, 0x470befee, BRF_GRA | CPS1_TILES },
+	{ "cd-7m.9a",		0x080000, 0x22bfb7a3, BRF_GRA | CPS1_TILES },
+	{ "cd-6m.8a",		0x080000, 0xe7599ac4, BRF_GRA | CPS1_TILES },
+	{ "cd-8m.10a",		0x080000, 0x211b4b15, BRF_GRA | CPS1_TILES },
+
+	{ "cd_q.5k",		0x020000, 0x605fdb0b, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "cd-q1.1k",		0x080000, 0x60927775, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "cd-q2.2k",		0x080000, 0x770f4c47, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "cd-q3.3k",		0x080000, 0x2f273ffc, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "cd-q4.4k",		0x080000, 0x2c67821d, BRF_SND | CPS1_QSOUND_SAMPLES },
+};
+
+STD_ROM_PICK(Dinotj)
+STD_ROM_FN(Dinotj)
+
+struct BurnDriver BurnDrvCpsDinotj = {
+	"dinotj", "dino", NULL, "2022",
+	"Cadillacs & Dinotjsaurs (Tian Jiang, Hack)\0", NULL, "hack", "CPS1 / QSound",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
+	NULL, DinotjRomInfo, DinotjRomName, DinoInputInfo, DinoDIPInfo,
+	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+
+// Cadillacs and Dinosaurs (Tian Wang, Hack)
+// Hack by NGS
+// GOTVG 20221027
+
+static struct BurnRomInfo DinotwRomDesc[] = {
+	{ "cde_tw.bin",		0x200000, 0xc21436ef, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "cd-1m.3a",		0x080000, 0x8da4f917, BRF_GRA | CPS1_TILES },
+	{ "cd-3m.5a",		0x080000, 0x6c40f603, BRF_GRA | CPS1_TILES },
+	{ "cd-2m.4a",		0x080000, 0x09c8fc2d, BRF_GRA | CPS1_TILES },
+	{ "cd-4m.6a",		0x080000, 0x637ff38f, BRF_GRA | CPS1_TILES },
+	{ "cd-5m.7a",		0x080000, 0x470befee, BRF_GRA | CPS1_TILES },
+	{ "cd-7m.9a",		0x080000, 0x22bfb7a3, BRF_GRA | CPS1_TILES },
+	{ "cd-6m.8a",		0x080000, 0xe7599ac4, BRF_GRA | CPS1_TILES },
+	{ "cd-8m.10a",		0x080000, 0x211b4b15, BRF_GRA | CPS1_TILES },
+
+	{ "cd_q.5k",		0x020000, 0x605fdb0b, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "cd-q1.1k",		0x080000, 0x60927775, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "cd-q2.2k",		0x080000, 0x770f4c47, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "cd-q3.3k",		0x080000, 0x2f273ffc, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "cd-q4.4k",		0x080000, 0x2c67821d, BRF_SND | CPS1_QSOUND_SAMPLES },
+};
+
+STD_ROM_PICK(Dinotw)
+STD_ROM_FN(Dinotw)
+
+struct BurnDriver BurnDrvCpsDinotw = {
+	"dinotw", "dino", NULL, "2022",
+	"Cadillacs & Dinotwsaurs (Tian Wang, Hack)\0", NULL, "hack", "CPS1 / QSound",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
+	NULL, DinotwRomInfo, DinotwRomName, DinoInputInfo, DinoDIPInfo,
+	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+
+// Cadillacs and Dinossaurs Readjusted, hacked by GameHackFan 
+// source: https://gamehackfan.github.io/dinore/
+
+static struct BurnRomInfo DinoreRomDesc[] = {
+	{ "cde_re.10f",    0x200000, 0x9e75c12c, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "cd-1m.3a",      0x080000, 0x8da4f917, BRF_GRA | CPS1_TILES },
+	{ "cd-3m.5a",      0x080000, 0x6c40f603, BRF_GRA | CPS1_TILES },
+	{ "cd-2m.4a",      0x080000, 0x09c8fc2d, BRF_GRA | CPS1_TILES },
+	{ "cd-4m.6a",      0x080000, 0x637ff38f, BRF_GRA | CPS1_TILES },
+	{ "cd-5m.7a",      0x080000, 0x470befee, BRF_GRA | CPS1_TILES },
+	{ "cd-7m.9a",      0x080000, 0x22bfb7a3, BRF_GRA | CPS1_TILES },
+	{ "cd-6m.8a",      0x080000, 0xe7599ac4, BRF_GRA | CPS1_TILES },
+	{ "cd-8m.10a",     0x080000, 0x211b4b15, BRF_GRA | CPS1_TILES },
+
+	{ "cd_q.5k",       0x020000, 0x605fdb0b, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "cd-q1.1k",      0x080000, 0x60927775, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "cd-q2.2k",      0x080000, 0x770f4c47, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "cd-q3.3k",      0x080000, 0x2f273ffc, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "cd-q4.4k",      0x080000, 0x2c67821d, BRF_SND | CPS1_QSOUND_SAMPLES },
+};
+
+STD_ROM_PICK(Dinore)
+STD_ROM_FN(Dinore)
+
+struct BurnDriver BurnDrvCpsDinore = {
+	"dinore", "dino", NULL, "2022",
+	"Cadillacs & Dinosaurs Readjusted (Hack, v1.2)\0", NULL, "GameHackFan", "CPS1 / QSound",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
+	NULL, DinoreRomInfo, DinoreRomName, DinoInputInfo, DinoDIPInfo,
+	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+
+// Tenchi wo Kurau II - Sekiheki no Tatakai (Master Edition)
+// Hack by Bindi
+// GOTVG 20220713
+
+static struct BurnRomInfo WofjdrRomDesc[] = {
+	{ "tk2j_dr.bin",	0x200000, 0xedb36c36, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "tk2_01.3a",		0x080000, 0x0d9cb9bf, BRF_GRA | CPS1_TILES },
+	{ "tk2_02.4a",		0x080000, 0x45227027, BRF_GRA | CPS1_TILES },
+	{ "tk2_03.5a",		0x080000, 0xc5ca2460, BRF_GRA | CPS1_TILES },
+	{ "tk2_04.6a",		0x080000, 0xe349551c, BRF_GRA | CPS1_TILES },
+	{ "tk2_05dr.7a",	0x080000, 0xe3c8c198, BRF_GRA | CPS1_TILES },
+	{ "tk2_06dr.8a",	0x080000, 0x5e3c0642, BRF_GRA | CPS1_TILES },
+	{ "tk2_07dr.9a",	0x080000, 0xd65a91d9, BRF_GRA | CPS1_TILES },
+	{ "tk2_08dr.10a",	0x080000, 0x675d490e, BRF_GRA | CPS1_TILES },
+
+	{ "tk2_qa.5k",		0x020000, 0xc9183a0d, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "tk2-q1.1k",		0x080000, 0x611268cf, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "tk2-q2.2k",		0x080000, 0x20f55ca9, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "tk2-q3.3k",		0x080000, 0xbfcf6f52, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "tk2-q4.4k",		0x080000, 0x36642e88, BRF_SND | CPS1_QSOUND_SAMPLES },
+};
+
+STD_ROM_PICK(Wofjdr)
+STD_ROM_FN(Wofjdr)
+
+struct BurnDriver BurnDrvCpsWofjdr = {
+	"wofjdr", "wof", NULL, "2022",
+	"Tenchi wo Kurau II - Sekiheki no Tatakai (Master Edition)\0", NULL, "hack", "CPS1 / QSound",
+	L"\u5929\u5730\u3092\u55b0\u3089\u3046 II - \u8d64\u58c1\u306e\u6226\u3044 (\u9054\u4eba)\0Tenchi wo Kurau II - Sekiheki no Tatakai (Master Edition)\0", NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
+	NULL, WofjdrRomInfo, WofjdrRomName, WofInputInfo, WofDIPInfo,
+	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+
+// Tenchi wo Kurau II - Sekiheki no Tatakai (Master 2020)
+// Hack by Bindi
+// GOTVG 20220720
+
+static struct BurnRomInfo Wofdr2020RomDesc[] = {
+	{ "tk2j_dr20.bin",	0x200000, 0x84d57fc8, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "tk2_01.3a",		0x080000, 0x0d9cb9bf, BRF_GRA | CPS1_TILES },
+	{ "tk2_02.4a",		0x080000, 0x45227027, BRF_GRA | CPS1_TILES },
+	{ "tk2_03.5a",		0x080000, 0xc5ca2460, BRF_GRA | CPS1_TILES },
+	{ "tk2_04.6a",		0x080000, 0xe349551c, BRF_GRA | CPS1_TILES },
+	{ "tk2_05dr.7a",	0x080000, 0xe3c8c198, BRF_GRA | CPS1_TILES },
+	{ "tk2_06dr.8a",	0x080000, 0x5e3c0642, BRF_GRA | CPS1_TILES },
+	{ "tk2_07dr.9a",	0x080000, 0xd65a91d9, BRF_GRA | CPS1_TILES },
+	{ "tk2_08dr.10a",	0x080000, 0x675d490e, BRF_GRA | CPS1_TILES },
+
+	{ "tk2_qa.5k",		0x020000, 0xc9183a0d, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "tk2-q1.1k",		0x080000, 0x611268cf, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "tk2-q2.2k",		0x080000, 0x20f55ca9, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "tk2-q3.3k",		0x080000, 0xbfcf6f52, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "tk2-q4.4k",		0x080000, 0x36642e88, BRF_SND | CPS1_QSOUND_SAMPLES },
+};
+
+STD_ROM_PICK(Wofdr2020)
+STD_ROM_FN(Wofdr2020)
+
+struct BurnDriver BurnDrvCpsWofdr2020 = {
+	"wofdr2020", "wof", NULL, "2022",
+	"Tenchi wo Kurau II - Sekiheki no Tatakai (Master 2020, Hack)\0", NULL, "hack", "CPS1 / QSound",
+	L"\u5929\u5730\u3092\u55b0\u3089\u3046 II - \u8d64\u58c1\u306e\u6226\u3044 (\u9054\u4eba 2020)\0Tenchi wo Kurau II - Sekiheki no Tatakai (Master 2020)\0", NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
+	NULL, Wofdr2020RomInfo, Wofdr2020RomName, WofInputInfo, WofDIPInfo,
+	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+
+// Street Fighter II Mix
+// Hacked by ZERO800 - BRAZIL
+// For more infomation, please visit: https://sf2mix.github.io/
+
+static struct BurnRomInfo sf2mixRomDesc[] = {
+	{ "smxe_23b.8f",   0x080000, 0x478d09c6, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+	{ "smx_22b.7f",    0x080000, 0x23212fb2, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+	{ "smx_21a.6f",    0x080000, 0xd3d77d12, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "smx-1m.3a",     0x080000, 0xa8f70643, BRF_GRA | CPS1_TILES },
+	{ "smx-3m.5a",     0x080000, 0xf73f1913, BRF_GRA | CPS1_TILES },
+	{ "smx-2m.4a",     0x080000, 0xa80234b4, BRF_GRA | CPS1_TILES },
+	{ "smx-4m.6a",     0x080000, 0x4d910b53, BRF_GRA | CPS1_TILES },
+	{ "smx-5m.7a",     0x080000, 0x01ae6240, BRF_GRA | CPS1_TILES },
+	{ "smx-7m.9a",     0x080000, 0x88dea20a, BRF_GRA | CPS1_TILES },
+	{ "smx-6m.8a",     0x080000, 0x7ea140b2, BRF_GRA | CPS1_TILES },
+	{ "smx-8m.10a",    0x080000, 0xfbc81a7e, BRF_GRA | CPS1_TILES },
+	{ "smx-10m.3c",    0x080000, 0x78e86cf4, BRF_GRA | CPS1_TILES },
+	{ "smx-12m.5c",    0x080000, 0x2f8e6dc9, BRF_GRA | CPS1_TILES },
+	{ "smx-11m.4c",    0x080000, 0x70095fdc, BRF_GRA | CPS1_TILES },
+	{ "smx-13m.6c",    0x080000, 0xd14d18e5, BRF_GRA | CPS1_TILES },
+
+	{ "smx_09.11a",    0x010000, 0xa379fdc5, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "smx_18.11c",    0x020000, 0x6aa5d7fa, BRF_SND | CPS1_OKIM6295_SAMPLES },
+	{ "smx_19.12c",    0x020000, 0xf92f5a4f, BRF_SND | CPS1_OKIM6295_SAMPLES },
+};
+
+STD_ROM_PICK(sf2mix)
+STD_ROM_FN(sf2mix)
+
+struct BurnDriver BurnDrvCpssf2mix = {
+	"sf2mix", "sf2ce", NULL, "2023",
+	"Street Fighter II Mix (v1.3)\0", NULL, "hack", "CPS1",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 2, HARDWARE_CAPCOM_CPS1, GBF_VSFIGHT, FBF_SF,
+	NULL, sf2mixRomInfo, sf2mixRomName, Sf2InputInfo, Sf2mixDIPInfo,
+	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+
+// The Punisherly (Flame Edition, Hack)
+// Hacked by ???
+// GOTVG 2018/08/13
+
+static struct BurnRomInfo PunisherlyRomDesc[] = {
+	{ "pse_26ly.11e",	0x020000, 0x61407567, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "pse_30ly.11f",	0x020000, 0x1ce21214, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "pse_27ly.12e",	0x020000, 0xb2f95ec3, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "pse_31ly.12f",	0x020000, 0x1f4b3234, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "pse_24ly.9e",	0x020000, 0xba611da8, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "pse_28ly.9f",	0x020000, 0x3ce9787d, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "pse_25ly.10e",	0x020000, 0x215adc3d, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "pse_29ly.10f",	0x020000, 0x6d83e595, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "ps_21ly.6f",		0x080000, 0x43327bbd, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "ps-1mly.3a",		0x080000, 0x4d4111de, BRF_GRA | CPS1_TILES },
+	{ "ps-3mly.5a",		0x080000, 0x2d346b82, BRF_GRA | CPS1_TILES },
+	{ "ps-2mly.4a",		0x080000, 0x5e0c85a1, BRF_GRA | CPS1_TILES },
+	{ "ps-4mly.6a",		0x080000, 0x4ccc5b41, BRF_GRA | CPS1_TILES },
+	{ "ps-5m.7a",		0x080000, 0xc54ea839, BRF_GRA | CPS1_TILES },
+	{ "ps-7m.9a",		0x080000, 0x04c5acbd, BRF_GRA | CPS1_TILES },
+	{ "ps-6m.8a",		0x080000, 0xa544f4cc, BRF_GRA | CPS1_TILES },
+	{ "ps-8m.10a",		0x080000, 0x8f02f436, BRF_GRA | CPS1_TILES },
+
+	{ "ps_q.5k",		0x020000, 0x49ff4446, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "ps-q1.1k",		0x080000, 0x31fd8726, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "ps-q2.2k",		0x080000, 0x980a9eef, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "ps-q3.3k",		0x080000, 0x0dd44491, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "ps-q4.4k",		0x080000, 0xbed42f03, BRF_SND | CPS1_QSOUND_SAMPLES },
+};
+
+STD_ROM_PICK(Punisherly)
+STD_ROM_FN(Punisherly)
+
+
+struct BurnDriver BurnDrvCpsPunisherly = {
+	"punisherly", "punisher", NULL, "2018",
+	"The Punisher (Flame Edition, Hack)\0", NULL, "Capcom", "CPS1 / QSound",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS1_QSOUND,
+	NULL, PunisherlyRomInfo, PunisherlyRomName, PunisherInputInfo, PunisherDIPInfo,
+	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+
+// The Punisherhr (Flame Edition, Hack)
+// Hacked by ???
+// GOTVG 2018/08/11
+
+static struct BurnRomInfo PunisherhrRomDesc[] = {
+	{ "pse_26hr.11e",	0x020000, 0x7730f07f, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "pse_30hr.11f",	0x020000, 0xadc62a92, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "pse_27hr.12e",	0x020000, 0xe3694c47, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "pse_31hr.12f",	0x020000, 0xaa40c89d, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "pse_24hr.9e",	0x020000, 0x876bf007, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "pse_28hr.9f",	0x020000, 0x644392c9, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "pse_25hr.10e",	0x020000, 0x7812ca13, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "pse_29hr.10f",	0x020000, 0x9330cb5d, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "ps_21.6f",		0x080000, 0x8affa5a9, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "ps-1mhr.3a",		0x080000, 0x15bb2e4d, BRF_GRA | CPS1_TILES },
+	{ "ps-3mhr.5a",		0x080000, 0x75ce5411, BRF_GRA | CPS1_TILES },
+	{ "ps-2mhr.4a",		0x080000, 0x06f6ba32, BRF_GRA | CPS1_TILES },
+	{ "ps-4mhr.6a",		0x080000, 0x143664d2, BRF_GRA | CPS1_TILES },
+	{ "ps-5m.7a",		0x080000, 0xc54ea839, BRF_GRA | CPS1_TILES },
+	{ "ps-7m.9a",		0x080000, 0x04c5acbd, BRF_GRA | CPS1_TILES },
+	{ "ps-6m.8a",		0x080000, 0xa544f4cc, BRF_GRA | CPS1_TILES },
+	{ "ps-8m.10a",		0x080000, 0x8f02f436, BRF_GRA | CPS1_TILES },
+
+	{ "ps_q.5k",		0x020000, 0x49ff4446, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "ps-q1.1k",		0x080000, 0x31fd8726, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "ps-q2.2k",		0x080000, 0x980a9eef, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "ps-q3.3k",		0x080000, 0x0dd44491, BRF_SND | CPS1_QSOUND_SAMPLES },
+	{ "ps-q4.4k",		0x080000, 0xbed42f03, BRF_SND | CPS1_QSOUND_SAMPLES },
+};
+
+STD_ROM_PICK(Punisherhr)
+STD_ROM_FN(Punisherhr)
+
+
+struct BurnDriver BurnDrvCpsPunisherhr = {
+	"punisherhr", "punisher", NULL, "2018",
+	"The Punisher (Red Man Edition, Hack)\0", NULL, "Capcom", "CPS1 / QSound",
+	NULL, NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS1_QSOUND,
+	NULL, PunisherhrRomInfo, PunisherhrRomName, PunisherInputInfo, PunisherDIPInfo,
+	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+
+// Captain Commando (T-Chi)
+
+static struct BurnRomInfo CaptcommcRomDesc[] = {
+	{ "ccc_23f.8f",	0x080000, 0xa5e73e49, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+	{ "ccc_22f.7f",	0x080000, 0x919777c5, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+	{ "ccc_24f.9e",	0x020000, 0xf3d6f147, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "ccc_28f.9f",	0x020000, 0xf1c9bf8a, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+
+	{ "cc-5m.3a",	0x080000, 0x7261d8ba, BRF_GRA | CPS1_TILES },
+	{ "cc-7m.5a",	0x080000, 0x6a60f949, BRF_GRA | CPS1_TILES },
+	{ "cc-1m.4a",	0x080000, 0x00637302, BRF_GRA | CPS1_TILES },
+	{ "cc-3m.6a",	0x080000, 0xcc87cf61, BRF_GRA | CPS1_TILES },
+	{ "ccc-6m.7a",	0x080000, 0xe4282bc0, BRF_GRA | CPS1_TILES },
+	{ "ccc-8m.9a",	0x080000, 0x8b0ef34c, BRF_GRA | CPS1_TILES },
+	{ "ccc-2m.8a",	0x080000, 0x2d7bee50, BRF_GRA | CPS1_TILES },
+	{ "ccc-4m.10a",	0x080000, 0x0106bf6a, BRF_GRA | CPS1_TILES },
+
+	{ "cc_09.11a",	0x010000, 0x698e8b58, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "cc_18.11c",	0x020000, 0x6de2c2db, BRF_SND | CPS1_OKIM6295_SAMPLES },
+	{ "cc_19.12c",	0x020000, 0xb99091ae, BRF_SND | CPS1_OKIM6295_SAMPLES },
+};
+
+STD_ROM_PICK(Captcommc)
+STD_ROM_FN(Captcommc)
+
+struct BurnDriver BurnDrvCpsCaptcommc = {
+	"captcommc", "captcomm", NULL, "1991",
+	"Captain Commando (T-Chi)\0", NULL, "hack", "CPS1",
+	L"Captain Commando (T-Chi)\0\u540d\u5c06 (\u6c49\u5316\u7248)\0", NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS1,
+	NULL, CaptcommcRomInfo, CaptcommcRomName, CaptcommInputInfo, CaptcommDIPInfo,
+	Cps1RasterInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+
+// Senjo no Ookami II (T-Chi)
+
+static struct BurnRomInfo MercscRomDesc[] = {
+	{ "so2c_36.12f",	0x020000, 0xd4d34a1f, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "so2c_42.12h",	0x020000, 0x184d7739, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "so2_37.13f",		0x020000, 0x51204d36, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "so2_43.13h",		0x020000, 0x9cfba8b4, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "so2_34.10f",		0x020000, 0xb8dae95f, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "so2_40.10h",		0x020000, 0xde37771c, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "so2c_35.11f",	0x020000, 0x1e84d605, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+	{ "so2c_41.11h",	0x020000, 0x831496b2, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_BYTESWAP },
+
+	{ "so2c_09.4b",		0x020000, 0x855d7524, BRF_GRA | CPS1_TILES },
+	{ "so2c_01.4a",		0x020000, 0xa44d4196, BRF_GRA | CPS1_TILES },
+	{ "so2c_13.9b",		0x020000, 0x8ba956f0, BRF_GRA | CPS1_TILES },
+	{ "so2c_05.9a",		0x020000, 0xdfc0ccaa, BRF_GRA | CPS1_TILES },
+	{ "so2c_24.5e",		0x020000, 0x94e7a3f2, BRF_GRA | CPS1_TILES },
+	{ "so2c_17.5c",		0x020000, 0x723bd58b, BRF_GRA | CPS1_TILES },
+	{ "so2c_38.8h",		0x020000, 0x3e5d7dd0, BRF_GRA | CPS1_TILES },
+	{ "so2c_32.8f",		0x020000, 0xfea1e81c, BRF_GRA | CPS1_TILES },
+	{ "so2_10.5b",		0x020000, 0x2f871714, BRF_GRA | CPS1_TILES },
+	{ "so2_02.5a",		0x020000, 0xb4b2a0b7, BRF_GRA | CPS1_TILES },
+	{ "so2_14.10b",		0x020000, 0x737a744b, BRF_GRA | CPS1_TILES },
+	{ "so2_06.10a",		0x020000, 0x9d756f51, BRF_GRA | CPS1_TILES },
+	{ "so2_25.7e",		0x020000, 0x6d0e05d6, BRF_GRA | CPS1_TILES },
+	{ "so2_18.7c",		0x020000, 0x96f61f4e, BRF_GRA | CPS1_TILES },
+	{ "so2_39.9h",		0x020000, 0xd52ba336, BRF_GRA | CPS1_TILES },
+	{ "so2_33.9f",		0x020000, 0x39b90d25, BRF_GRA | CPS1_TILES },
+	{ "so2c_11.7b",		0x020000, 0x89322061, BRF_GRA | CPS1_TILES },
+	{ "so2c_03.7a",		0x020000, 0x55ab0bde, BRF_GRA | CPS1_TILES },
+	{ "so2c_15.11b",	0x020000, 0x542ecd0e, BRF_GRA | CPS1_TILES },
+	{ "so2c_07.11a",	0x020000, 0xdb87495b, BRF_GRA | CPS1_TILES },
+	{ "so2c_26.8e",		0x020000, 0x7b07ea2a, BRF_GRA | CPS1_TILES },
+	{ "so2c_19.8c",		0x020000, 0x690310cc, BRF_GRA | CPS1_TILES },
+	{ "so2c_28.10e",	0x020000, 0x323e586e, BRF_GRA | CPS1_TILES },
+	{ "so2c_21.10c",	0x020000, 0xcb355a66, BRF_GRA | CPS1_TILES },
+
+	{ "so2_23.13b",		0x010000, 0xd09d7c7a, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "so2_30.12c",		0x020000, 0xbbea1643, BRF_SND | CPS1_OKIM6295_SAMPLES },
+	{ "so2_31.13c",		0x020000, 0xac58aa71, BRF_SND | CPS1_OKIM6295_SAMPLES },
+};
+
+STD_ROM_PICK(Mercsc)
+STD_ROM_FN(Mercsc)
+
+struct BurnDriver BurnDrvCpsMercsc = {
+	"mercsc", "mercs", NULL, NULL, "1990",
+	"Senjo no Ookami II (T-Chi)\0", NULL, "hack", "CPS1",
+	L"Senjo no Ookami II (T-Chi)\0\u6218\u573a\u4e4b\u72fc II (\u6c49\u5316\u7248)\0", NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_ORIENTATION_VERTICAL | BDF_HISCORE_SUPPORTED, 3, HARDWARE_CAPCOM_CPS1, GBF_RUNGUN, 0,
+	NULL, MercscRomInfo, MercscRomName, MercsInputInfo, MercsDIPInfo,
+	MercsInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	&CpsRecalcPal, 0x1000, 224, 384, 3, 4
+};
+
+// Knights of the Round (T-Chi)
+
+static struct BurnRomInfo KnightscRomDesc[] = {
+	{ "kr_23c.8f",	0x080000, 0xfb24db66, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+	{ "kr_22.7f",	0x080000, 0xd0b671a9, BRF_ESS | BRF_PRG | CPS1_68K_PROGRAM_NO_BYTESWAP },
+
+	{ "kr_01c.3a",	0x080000, 0x745611e7, BRF_GRA | CPS1_TILES },
+	{ "kr_02c.4a",	0x080000, 0x1859515d, BRF_GRA | CPS1_TILES },
+	{ "kr_03c.5a",	0x080000, 0x69543f31, BRF_GRA | CPS1_TILES },
+	{ "kr_04c.6a",	0x080000, 0x5d316175, BRF_GRA | CPS1_TILES },
+	{ "kr_05c.7a",	0x080000, 0x78e32bb7, BRF_GRA | CPS1_TILES },
+	{ "kr_06c.8a",	0x080000, 0x9425fd46, BRF_GRA | CPS1_TILES },
+	{ "kr_07c.9a",	0x080000, 0xd5e377a1, BRF_GRA | CPS1_TILES },
+	{ "kr_08c.10a",	0x080000, 0x90860da1, BRF_GRA | CPS1_TILES },
+
+	{ "kr_09.12a",	0x010000, 0x5e44d9ee, BRF_PRG | CPS1_Z80_PROGRAM },
+
+	{ "kr_18.11c",	0x020000, 0xda69d15f, BRF_SND | CPS1_OKIM6295_SAMPLES },
+	{ "kr_19.12c",	0x020000, 0xbfc654e9, BRF_SND | CPS1_OKIM6295_SAMPLES },
+};
+
+STD_ROM_PICK(Knightsc)
+STD_ROM_FN(Knightsc)
+
+struct BurnDriver BurnDrvCpsKnightsc = {
+	"knightsc", "knights", NULL, NULL, "1991",
+	"Knights of the Round (T-Chi)\0", NULL, "hack", "CPS1",
+	L"Knights of the Round (T-Chi)\0\u5706\u684c\u6b66\u58eb (\u6c49\u5316\u7248)\0", NULL, NULL, NULL,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 3, HARDWARE_CAPCOM_CPS1,
+	NULL, KnightscRomInfo, KnightscRomName, KnightsInputInfo, KnightsDIPInfo,
+	DrvInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
+};
+
 #if defined INCLUDE_HACKS
 
 // Not included games
