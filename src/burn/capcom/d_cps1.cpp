@@ -3379,73 +3379,6 @@ static struct BurnDIPInfo WofhfhDIPList[]=
 
 STDDIPINFO(Wofhfh);
 
-// Port from FBNeo 20230303 
-
-static struct BurnDIPInfo FfightaeDIPList[]=
-{
-	DIP_OFFSET(0x1d)
-
-	// Defaults
-	{0x00, 0xff, 0xff, 0x00, NULL                     },
-	{0x01, 0xff, 0xff, 0x0b, NULL                     },
-	{0x02, 0xff, 0xff, 0x60, NULL                     },
-
-	// Dip A
-	CPS1_COINAGE_1(0x00)
-
-	{0   , 0xfe, 0   , 2   , "2C to Start, 1 to Cont" },
-	{0x00, 0x01, 0x40, 0x00, "Off"                    },
-	{0x00, 0x01, 0x40, 0x40, "On"                     },
-
-	// Dip B
-	CPS1_DIFFICULTY_1(0x01)
-
-	{0   , 0xfe, 0   , 4   , "Difficulty 2"           },
-	{0x01, 0x01, 0x18, 0x00, "Easy"                   },
-	{0x01, 0x01, 0x18, 0x08, "Normal"                 },
-	{0x01, 0x01, 0x18, 0x10, "Hard"                   },
-	{0x01, 0x01, 0x18, 0x18, "Hardest"                },
-
-	{0   , 0xfe, 0   , 4   , "Bonus Life"             },
-	{0x01, 0x01, 0x60, 0x00, "100k"                   },
-	{0x01, 0x01, 0x60, 0x20, "200k"                   },
-	{0x01, 0x01, 0x60, 0x40, "100k and every 200k"    },
-	{0x01, 0x01, 0x60, 0x60, "None"                   },
-
-	// Dip C
-	{0   , 0xfe, 0   , 4   , "Lives"                  },
-	{0x02, 0x01, 0x03, 0x03, "1"                      },
-	{0x02, 0x01, 0x03, 0x00, "2"                      },
-	{0x02, 0x01, 0x03, 0x01, "3"                      },
-	{0x02, 0x01, 0x03, 0x02, "4"                      },
-
-	{0   , 0xfe, 0   , 2   , "Free Play"              },
-	{0x02, 0x01, 0x04, 0x00, "Off"                    },
-	{0x02, 0x01, 0x04, 0x04, "On"                     },
-
-	{0   , 0xfe, 0   , 2   , "Freeze"                 },
-	{0x02, 0x01, 0x08, 0x00, "Off"                    },
-	{0x02, 0x01, 0x08, 0x08, "On"                     },
-
-	{0   , 0xfe, 0   , 2   , "Flip"                   },
-	{0x02, 0x01, 0x10, 0x00, "Off"                    },
-	{0x02, 0x01, 0x10, 0x10, "On"                     },
-
-	{0   , 0xfe, 0   , 2   , "Demo Sound"             },
-	{0x02, 0x01, 0x20, 0x00, "Off"                    },
-	{0x02, 0x01, 0x20, 0x20, "On"                     },
-
-	{0   , 0xfe, 0   , 2   , "Allow Continue"         },
-	{0x02, 0x01, 0x40, 0x00, "Off"                    },
-	{0x02, 0x01, 0x40, 0x40, "On"                     },
-
-	{0   , 0xfe, 0   , 2   , "Game Mode"              },
-	{0x02, 0x01, 0x80, 0x00, "Game"                   },
-	{0x02, 0x01, 0x80, 0x80, "Test"                   },
-};
-
-STDDIPINFO(Ffightae);
-
 // Rom Definitions
 
 static struct BurnRomInfo NTFODrvRomDesc[] = {
@@ -10037,7 +9970,7 @@ struct BurnDriver BurnDrvCpsSf2ud = {
 	"sf2ud", "sf2", NULL, "1991",
 	"Street Fighter II - the world warrior (910318 USA)\0", NULL, "Capcom", "CPS1",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE ,2, HARDWARE_CAPCOM_CPS1,
+	BDF_GAME_WORKING | BDF_CLONE,2, HARDWARE_CAPCOM_CPS1,
 	NULL, Sf2udRomInfo, Sf2udRomName, Sf2InputInfo, Sf2DIPInfo,
 	DrvInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
@@ -10858,8 +10791,8 @@ struct BurnDriver BurnDrvCpsWofchdx = {
 	"Sangokushi III Gaiden: Kakou-On's Revenge DX (hack)\0", NULL, "hack", "CPS Changer",
 	L"\u4E09\u56FD\u5FD7 III \u5916\u4F20: \u590F\u4FAF\u6069\u7684\u590D\u4EC7\0Sangokushi III Gaiden: Kakou-On's Revenge DX (hack)\0", NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE, 3, HARDWARE_CAPCOM_CPSCHANGER,
-	NULL, WofchdxRomInfo, WofchdxRomName, WofchpInputInfo, NULL,
-	WofchInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	NULL, WofchdxRomInfo, WofchdxRomName, wofchInputInfo, NULL,
+	wofchInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
 };
 	
@@ -10894,8 +10827,8 @@ struct BurnDriver BurnDrvCpswofchp = {
 	"Tenchi wo Kurau II - Sekiheki no Tatakai (PS/SS Version)\0", NULL, "hack", "CPS Changer",
 	NULL, NULL, NULL, NULL,
 	BDF_GAME_WORKING | BDF_CLONE, 3, HARDWARE_CAPCOM_CPSCHANGER,
-	NULL, wofchpRomInfo, wofchpRomName, WofchpInputInfo, NULL,
-	WofchInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	NULL, wofchpRomInfo, wofchpRomName, wofchInputInfo, NULL,
+	wofchInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
 };
 
@@ -10924,8 +10857,8 @@ struct BurnDriver BurnDrvCpsFfightae = {
 	"ffightae", "ffight", NULL, "2019",
 	"Final Fight 30th Anniversary Edition\0", NULL, "hack", "CPS1",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 3, HARDWARE_CAPCOM_CPS1,
-	NULL, FfightaeRomInfo, FfightaeRomName, FfightaeInputInfo, FfightaeDIPInfo,
+	BDF_GAME_WORKING | BDF_CLONE, 3, HARDWARE_CAPCOM_CPS1,
+	NULL, FfightaeRomInfo, FfightaeRomName, FfightaeInputInfo, FfightDIPInfo,
 	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
 };
@@ -10955,8 +10888,8 @@ struct BurnDriver BurnDrvCpsFfightaemgc = {
 	"ffightaemgc", "ffight", NULL, "2022",
 	"Final Fight 30th Anniversary Edition (Mad Gear's City Hack)\0", NULL, "ZombieMaster", "CPS1",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 3, HARDWARE_CAPCOM_CPS1,
-	NULL, FfightaemgcRomInfo, FfightaemgcRomName, FfightaeInputInfo, FfightaeDIPInfo,
+	BDF_GAME_WORKING | BDF_CLONE, 3, HARDWARE_CAPCOM_CPS1,
+	NULL, FfightaemgcRomInfo, FfightaemgcRomName, FfightaeInputInfo, FfightDIPInfo,
 	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
 };
@@ -10993,9 +10926,9 @@ struct BurnDriver BurnDrvCpsCaptcommp4 = {
 	"captcommp4", "captcomm", NULL, "2015-12-05",
 	"Captain Commando (Enhanced edition 1 V 4, Hack)\0", NULL, "hack", "CPS1",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS1,
+	BDF_GAME_WORKING | BDF_CLONE, 4, HARDWARE_CAPCOM_CPS1,
 	NULL, Captcommp4RomInfo, Captcommp4RomName, CaptcommInputInfo, CaptcommDIPInfo,
-	Cps1RasterInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	DrvInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
 };
 
@@ -11028,9 +10961,9 @@ struct BurnDriver BurnDrvCpsCaptcommpwx = {
 	"captcommpwx", "captcomm", NULL, "2021",
 	"Captain Commando (Unlimited Bullet)\0", NULL, "hack", "CPS1",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS1,
+	BDF_GAME_WORKING | BDF_CLONE, 4, HARDWARE_CAPCOM_CPS1,
 	NULL, CaptcommpwxRomInfo, CaptcommpwxRomName, CaptcommInputInfo, CaptcommDIPInfo,  
-	Cps1RasterInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	DrvInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
 };
 
@@ -11063,9 +10996,9 @@ struct BurnDriver BurnDrvCpsCaptcomm2y = {
 	"captcomm2y", "captcomm", NULL, "2022",
 	"Captain Commando (Er Ye)\0", NULL, "hack", "CPS1",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS1,
+	BDF_GAME_WORKING | BDF_CLONE, 4, HARDWARE_CAPCOM_CPS1,
 	NULL, Captcomm2yRomInfo, Captcomm2yRomName, CaptcommInputInfo, CaptcommDIPInfo,
-	Cps1RasterInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	DrvInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
 };
 
@@ -11098,9 +11031,9 @@ struct BurnDriver BurnDrvCpsCaptcommpjy = {
 	"captcommpjy", "captcomm", NULL, "2022",
 	"Captain Commando (Elite Competition)\0", NULL, "hack", "CPS1",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS1,
+	BDF_GAME_WORKING | BDF_CLONE, 4, HARDWARE_CAPCOM_CPS1,
 	NULL, CaptcommpjyRomInfo, CaptcommpjyRomName, CaptcommInputInfo, CaptcommDIPInfo,
-	Cps1RasterInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	DrvInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
 };
 
@@ -11133,9 +11066,9 @@ struct BurnDriver BurnDrvCpsCaptcommpmy = {
 	"captcommpmy", "captcomm", NULL, "2022",
 	"Captain Commando (Incubus)\0", NULL, "hack", "CPS1",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS1,
+	BDF_GAME_WORKING | BDF_CLONE, 4, HARDWARE_CAPCOM_CPS1,
 	NULL, CaptcommpmyRomInfo, CaptcommpmyRomName, CaptcommInputInfo, CaptcommDIPInfo,
-	Cps1RasterInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	DrvInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
 };
 
@@ -11167,9 +11100,9 @@ struct BurnDriver BurnDrvCpsCaptre = {
 	"captre", "captcomm", NULL, "2022",
 	"Captain Commando Readjusted (Hack, v1.0)\0", NULL, "GameHackFan", "CPS1",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS1,
+	BDF_GAME_WORKING | BDF_CLONE, 4, HARDWARE_CAPCOM_CPS1,
 	NULL, CaptreRomInfo, CaptreRomName, CaptcommInputInfo, CaptcommDIPInfo,
-	Cps1RasterInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	DrvInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
 };
 
@@ -11204,7 +11137,7 @@ struct BurnDriver BurnDrvCpsDinods = {
 	"dinods", "dino", NULL, "2021",
 	"Cadillacs and Dinosaurs (God of War Edition, Hack)\0", NULL, "hack", "CPS1 / QSound",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
+	BDF_GAME_WORKING | BDF_CLONE, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
 	NULL, DinodsRomInfo, DinodsRomName, DinoInputInfo, DinoDIPInfo,
 	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
@@ -11241,7 +11174,7 @@ struct BurnDriver BurnDrvCpsDinosyn = {
 	"dinosyn", "dino", NULL, "2022",
 	"Cadillacs and Dinosaurs (2020 Commemorative Edition, Hack)\0", NULL, "hack", "CPS1 / QSound",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
+	BDF_GAME_WORKING | BDF_CLONE, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
 	NULL, DinosynRomInfo, DinosynRomName, DinoInputInfo, DinoDIPInfo,
 	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
@@ -11278,7 +11211,7 @@ struct BurnDriver BurnDrvCpsDinogae = {
 	"dinogae", "dino", NULL, "2022",
 	"Cadillacs and Dinosaurs (GOTVG 10th Anniversary Edition, Hack)\0", NULL, "hack", "CPS1 / QSound",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
+	BDF_GAME_WORKING | BDF_CLONE, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
 	NULL, DinogaeRomInfo, DinogaeRomName, DinoInputInfo, DinoDIPInfo,
 	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
@@ -11315,7 +11248,7 @@ struct BurnDriver BurnDrvCpsDinotj = {
 	"dinotj", "dino", NULL, "2022",
 	"Cadillacs & Dinotjsaurs (Tian Jiang, Hack)\0", NULL, "hack", "CPS1 / QSound",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
+	BDF_GAME_WORKING | BDF_CLONE, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
 	NULL, DinotjRomInfo, DinotjRomName, DinoInputInfo, DinoDIPInfo,
 	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
@@ -11352,7 +11285,7 @@ struct BurnDriver BurnDrvCpsDinotw = {
 	"dinotw", "dino", NULL, "2022",
 	"Cadillacs & Dinotwsaurs (Tian Wang, Hack)\0", NULL, "hack", "CPS1 / QSound",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
+	BDF_GAME_WORKING | BDF_CLONE, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
 	NULL, DinotwRomInfo, DinotwRomName, DinoInputInfo, DinoDIPInfo,
 	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
@@ -11388,7 +11321,7 @@ struct BurnDriver BurnDrvCpsDinore = {
 	"dinore", "dino", NULL, "2022",
 	"Cadillacs & Dinosaurs Readjusted (Hack, v1.2)\0", NULL, "GameHackFan", "CPS1 / QSound",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
+	BDF_GAME_WORKING | BDF_CLONE, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
 	NULL, DinoreRomInfo, DinoreRomName, DinoInputInfo, DinoDIPInfo,
 	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
@@ -11425,7 +11358,7 @@ struct BurnDriver BurnDrvCpsWofjdr = {
 	"wofjdr", "wof", NULL, "2022",
 	"Tenchi wo Kurau II - Sekiheki no Tatakai (Master Edition)\0", NULL, "hack", "CPS1 / QSound",
 	L"\u5929\u5730\u3092\u55b0\u3089\u3046 II - \u8d64\u58c1\u306e\u6226\u3044 (\u9054\u4eba)\0Tenchi wo Kurau II - Sekiheki no Tatakai (Master Edition)\0", NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
+	BDF_GAME_WORKING | BDF_CLONE, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
 	NULL, WofjdrRomInfo, WofjdrRomName, WofInputInfo, WofDIPInfo,
 	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
@@ -11462,7 +11395,7 @@ struct BurnDriver BurnDrvCpsWofdr2020 = {
 	"wofdr2020", "wof", NULL, "2022",
 	"Tenchi wo Kurau II - Sekiheki no Tatakai (Master 2020, Hack)\0", NULL, "hack", "CPS1 / QSound",
 	L"\u5929\u5730\u3092\u55b0\u3089\u3046 II - \u8d64\u58c1\u306e\u6226\u3044 (\u9054\u4eba 2020)\0Tenchi wo Kurau II - Sekiheki no Tatakai (Master 2020)\0", NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
+	BDF_GAME_WORKING | BDF_CLONE, 3, HARDWARE_CAPCOM_CPS1_QSOUND,
 	NULL, Wofdr2020RomInfo, Wofdr2020RomName, WofInputInfo, WofDIPInfo,
 	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
@@ -11503,8 +11436,8 @@ struct BurnDriver BurnDrvCpssf2mix = {
 	"sf2mix", "sf2ce", NULL, "2023",
 	"Street Fighter II Mix (v1.3)\0", NULL, "hack", "CPS1",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK, 2, HARDWARE_CAPCOM_CPS1, GBF_VSFIGHT, FBF_SF,
-	NULL, sf2mixRomInfo, sf2mixRomName, Sf2InputInfo, Sf2mixDIPInfo,
+	BDF_GAME_WORKING | BDF_CLONE, 2, HARDWARE_CAPCOM_CPS1,
+	NULL, sf2mixRomInfo, sf2mixRomName, Sf2InputInfo, Sf2DIPInfo,
 	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
 };
@@ -11549,7 +11482,7 @@ struct BurnDriver BurnDrvCpsPunisherly = {
 	"punisherly", "punisher", NULL, "2018",
 	"The Punisher (Flame Edition, Hack)\0", NULL, "Capcom", "CPS1 / QSound",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS1_QSOUND,
+	BDF_GAME_WORKING | BDF_CLONE, 2, HARDWARE_CAPCOM_CPS1_QSOUND,
 	NULL, PunisherlyRomInfo, PunisherlyRomName, PunisherInputInfo, PunisherDIPInfo,
 	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
@@ -11595,7 +11528,7 @@ struct BurnDriver BurnDrvCpsPunisherhr = {
 	"punisherhr", "punisher", NULL, "2018",
 	"The Punisher (Red Man Edition, Hack)\0", NULL, "Capcom", "CPS1 / QSound",
 	NULL, NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 2, HARDWARE_CAPCOM_CPS1_QSOUND,
+	BDF_GAME_WORKING | BDF_CLONE, 2, HARDWARE_CAPCOM_CPS1_QSOUND,
 	NULL, PunisherhrRomInfo, PunisherhrRomName, PunisherInputInfo, PunisherDIPInfo,
 	TwelveMhzInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
@@ -11631,9 +11564,9 @@ struct BurnDriver BurnDrvCpsCaptcommc = {
 	"captcommc", "captcomm", NULL, "1991",
 	"Captain Commando (T-Chi)\0", NULL, "hack", "CPS1",
 	L"Captain Commando (T-Chi)\0\u540d\u5c06 (\u6c49\u5316\u7248)\0", NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 4, HARDWARE_CAPCOM_CPS1,
+	BDF_GAME_WORKING | BDF_CLONE, 4, HARDWARE_CAPCOM_CPS1,
 	NULL, CaptcommcRomInfo, CaptcommcRomName, CaptcommInputInfo, CaptcommDIPInfo,
-	Cps1RasterInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
+	DrvInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
 };
 
@@ -11684,13 +11617,13 @@ STD_ROM_PICK(Mercsc)
 STD_ROM_FN(Mercsc)
 
 struct BurnDriver BurnDrvCpsMercsc = {
-	"mercsc", "mercs", NULL, NULL, "1990",
+	"mercsc", "mercs", NULL,  "1990",
 	"Senjo no Ookami II (T-Chi)\0", NULL, "hack", "CPS1",
 	L"Senjo no Ookami II (T-Chi)\0\u6218\u573a\u4e4b\u72fc II (\u6c49\u5316\u7248)\0", NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_ORIENTATION_VERTICAL | BDF_HISCORE_SUPPORTED, 3, HARDWARE_CAPCOM_CPS1, GBF_RUNGUN, 0,
+	BDF_GAME_WORKING | BDF_CLONE | BDF_ORIENTATION_VERTICAL, 3, HARDWARE_CAPCOM_CPS1,
 	NULL, MercscRomInfo, MercscRomName, MercsInputInfo, MercsDIPInfo,
 	MercsInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
-	&CpsRecalcPal, 0x1000, 224, 384, 3, 4
+	0, NULL, NULL, NULL, &CpsRecalcPal, 224, 384, 3, 4
 };
 
 // Knights of the Round (T-Chi)
@@ -11718,10 +11651,10 @@ STD_ROM_PICK(Knightsc)
 STD_ROM_FN(Knightsc)
 
 struct BurnDriver BurnDrvCpsKnightsc = {
-	"knightsc", "knights", NULL, NULL, "1991",
+	"knightsc", "knights", NULL, "1991",
 	"Knights of the Round (T-Chi)\0", NULL, "hack", "CPS1",
 	L"Knights of the Round (T-Chi)\0\u5706\u684c\u6b66\u58eb (\u6c49\u5316\u7248)\0", NULL, NULL, NULL,
-	BDF_GAME_WORKING | BDF_CLONE | BDF_HACK | BDF_HISCORE_SUPPORTED, 3, HARDWARE_CAPCOM_CPS1,
+	BDF_GAME_WORKING | BDF_CLONE, 3, HARDWARE_CAPCOM_CPS1,
 	NULL, KnightscRomInfo, KnightscRomName, KnightsInputInfo, KnightsDIPInfo,
 	DrvInit, DrvExit, Cps1Frame, CpsRedraw, CpsAreaScan,
 	0, NULL, NULL, NULL, &CpsRecalcPal, 384, 224, 4, 3
