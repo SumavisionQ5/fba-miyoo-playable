@@ -83,7 +83,7 @@ alldir	=	burn \
 #cpu/nec
 incdir	= $(foreach dir,$(alldir),-I$(srcdir)$(dir)) -I$(objdir)generated -I$(srcdir) -I/opt/miyoo/arm-miyoo-linux-uclibcgnueabi/sysroot/usr/include -I/opt/miyoo/arm-miyoo-linux-uclibcgnueabi/sysroot/usr/include/SDL
 
-lib = -lstdc++ -lSDL -lSDL_ttf -lSDL_image -lz
+lib = -lstdc++ -lSDL -lSDL_image -lz
 
 ifdef USE_LIBAO
 	lib += -lao

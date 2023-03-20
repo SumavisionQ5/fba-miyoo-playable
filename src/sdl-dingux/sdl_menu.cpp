@@ -41,10 +41,6 @@
 #define COLOR_FRAMESKIP_BAR color16(15, 31, 31)
 #define COLOR_HELP_TEXT     color16(16, 40, 24)
 
-#include <SDL/SDL_ttf.h>
-//TTF_Font *font=NULL;
-TTF_Font *font_small=NULL;
-
 /* SDL declarations */
 extern SDL_Surface *screen;
 SDL_Surface *menuSurface = NULL; // menu rendering
@@ -167,22 +163,16 @@ void DrawString(const char *s, unsigned short fg_color, unsigned short bg_color,
 	SDL_BlitSurface(msg, NULL, screen, &rt);
 	SDL_FreeSurface(msg); 
 	*/
-	// SDL_Init(SDL_INIT_VIDEO);
-    // screen = SDL_SetVideoMode(320, 240, 16, SDL_SWSURFACE | SDL_DOUBLEBUF);
-	
-	if(SDL_MUSTLOCK(menuSurface)) SDL_LockSurface(menuSurface);
-	
 	SDL_Surface *msg=NULL;
 	SDL_Rect rt={0};
 	int w=0, h=0;
-	SDL_Color col={255, 255, 255};
-	TTF_SizeUTF8(font_small, s, &w, &h);
-	rt.x = (240 - w) / 2;
+	SDL_Color col={255, 255, 0};
+	
+	rt.x = x;
 	rt.y = y;
 	msg = TTF_RenderUTF8_Solid(font_small, s, col);
 	SDL_BlitSurface(msg, NULL, screen, &rt);
 	SDL_FreeSurface(msg);
-	if(SDL_MUSTLOCK(menuSurface)) SDL_UnlockSurface(menuSurface);
 	
 }
 
@@ -214,13 +204,13 @@ void ShowMenu(MENU *menu)
 
 	// clear buffer
 	SDL_FillRect(menuSurface, NULL, COLOR_BG);
-	
+
 	// show menu lines
 	for(i = 0; i < menu->itemNum; i++, mi++) {
 		int fg_color;
 
 		if(menu->itemCur == i) fg_color = COLOR_ACTIVE_ITEM; else fg_color = COLOR_INACTIVE_ITEM;
-		ShowMenuItem(80, (18 + i) * 16, mi, fg_color); //16像素粗的字体
+		ShowMenuItem(80, (18 + i) * 8, mi, fg_color);
 	}
 
 	// show preview screen
@@ -239,13 +229,7 @@ void gui_MenuRun(MENU *menu)
 {
 	SDL_Event gui_event;
 	MENUITEM *mi;
-	
-	// 字体初始化
-	SDL_Init(SDL_INIT_VIDEO);
-	screen = SDL_SetVideoMode(320, 240, 16, SDL_SWSURFACE | SDL_DOUBLEBUF);
-	TTF_Init();
-	font_small = TTF_OpenFont("font.ttf", 16);
-	
+
 	done = 0;
 
 	while(!done) {
@@ -271,10 +255,7 @@ void gui_MenuRun(MENU *menu)
 				}
 			}
 		}
-		if(!done) 
-		{
-			ShowMenu(menu); // show menu items
-		}
+		if(!done) ShowMenu(menu); // show menu items
 		SDL_Delay(16);
 		gui_Flip();
 	}
@@ -304,7 +285,7 @@ static void gui_reset()
 /* exported functions */ 
 
 void gui_Init()
-{	
+{
 	menuSurface = SDL_CreateRGBSurface(SDL_SWSURFACE, 320, 240, 16, 0, 0, 0, 0);
 }
 
