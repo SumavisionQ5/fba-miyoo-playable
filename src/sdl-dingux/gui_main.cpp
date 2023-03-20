@@ -27,6 +27,7 @@
 #include <SDL/SDL_image.h>
 #include <SDL/SDL_ttf.h> // ADD FOR NEW FONT
 
+
 #include "burner.h"
 #include "sdl_run.h"
 #include "gui_main.h"
@@ -36,6 +37,9 @@
 #include "gui_setpath.h"
 
 #define ROMLIST(A,B) romlist.A[romsort[cfg.list][B]]
+
+//TTF_Font *font=NULL;
+TTF_Font *font_xiao=NULL;
 
 extern char **environ;
 
@@ -135,13 +139,21 @@ void put_string(char *string, unsigned int pos_x, unsigned int pos_y, unsigned c
 	const char *err="请将游戏放到 /roms/gba/ 目录";
 	SDL_Color col={255, 255, 0};
 
-	TTF_SizeUTF8(font_small, err, &w, &h);
+	TTF_SizeUTF8(font_xiao, err, &w, &h);
 	rt.x = (240 - w) / 2;
 	rt.y = 30 + ((195 - h) / 2);
-	msg = TTF_RenderUTF8_Solid(font_small, err, col);
+	msg = TTF_RenderUTF8_Solid(font_xiao, err, col);
 	SDL_BlitSurface(msg, NULL, screen, &rt);
 	SDL_FreeSurface(msg); 
 	*/
+	// 初始化字体载入
+	// SDL_Init(SDL_INIT_VIDEO);
+    // gui_screen = SDL_SetVideoMode(320, 240, 16, SDL_SWSURFACE | SDL_DOUBLEBUF);
+	TTF_Init();
+    //font = TTF_OpenFont("font.ttf", 20);
+    font_xiao = TTF_OpenFont("./font.ttf", 16);
+	// 初始化字体载入结束
+	
 	SDL_Rect Src;
 	SDL_Rect Dest;
 
@@ -155,7 +167,8 @@ void put_string(char *string, unsigned int pos_x, unsigned int pos_y, unsigned c
 	SDL_Surface *msg=NULL;
 	int w=0, h=0;
 	SDL_Color col={255, 255, 0};
-	msg = TTF_SizeUTF8(font_small, string, &w, &h);
+	
+	msg = TTF_RenderUTF8_Solid(font_xiao, string, col);
 	SDL_BlitSurface(msg, NULL, s, &Dest);
 	SDL_FreeSurface(msg); 
 	//重写结束
@@ -997,11 +1010,6 @@ void load_lastsel()
 
 void gui_menu_main()
 {
-	// 初始化字体载入
-	TTF_Init();
-    font = TTF_OpenFont("font.ttf", 20);
-    font_small = TTF_OpenFont("font_small.ttf", 16);
-	// 初始化字体载入结束
 	int Quit;
 	unsigned int zipnum;
 	unsigned int y;
