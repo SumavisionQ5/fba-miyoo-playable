@@ -25,7 +25,6 @@
 
 #include <SDL/SDL.h>
 #include <SDL/SDL_image.h>
-#include <SDL/SDL_ttf.h> // ADD FOR NEW FONT
 
 #include "burner.h"
 #include "sdl_run.h"
@@ -129,19 +128,6 @@ int exit_prog(void)
 
 void put_string(char *string, unsigned int pos_x, unsigned int pos_y, unsigned char couleur, SDL_Surface *s)
 {
-	/* 
-	SDL_Rect rt={0};
-	int w=0, h=0;
-	const char *err="请将游戏放到 /roms/gba/ 目录";
-	SDL_Color col={255, 255, 0};
-
-	TTF_SizeUTF8(font_small, err, &w, &h);
-	rt.x = (240 - w) / 2;
-	rt.y = 30 + ((195 - h) / 2);
-	msg = TTF_RenderUTF8_Solid(font_small, err, col);
-	SDL_BlitSurface(msg, NULL, screen, &rt);
-	SDL_FreeSurface(msg); 
-	*/
 	SDL_Rect Src;
 	SDL_Rect Dest;
 
@@ -149,18 +135,8 @@ void put_string(char *string, unsigned int pos_x, unsigned int pos_y, unsigned c
 	Src.w = 5;
 	Src.h = 9;
 	Dest.y = pos_y;
-	
-	//重写
-	Dest.x = pos_x;
-	SDL_Surface *msg=NULL;
-	int w=0, h=0;
-	SDL_Color col={255, 255, 0};
-	msg = TTF_SizeUTF8(font_small, string, &w, &h);
-	SDL_BlitSurface(msg, NULL, s, &Dest);
-	SDL_FreeSurface(msg); 
-	//重写结束
 
-	/* while(*string)
+	while(*string)
 	{
 		if (font6x[*string]){
 			Src.x = font6x[*string];
@@ -169,7 +145,7 @@ void put_string(char *string, unsigned int pos_x, unsigned int pos_y, unsigned c
 		}
 		++string;
 		pos_x += 6;
-	} */
+	}
 }
 
 
@@ -997,11 +973,6 @@ void load_lastsel()
 
 void gui_menu_main()
 {
-	// 初始化字体载入
-	TTF_Init();
-    font = TTF_OpenFont("font.ttf", 20);
-    font_small = TTF_OpenFont("font_small.ttf", 16);
-	// 初始化字体载入结束
 	int Quit;
 	unsigned int zipnum;
 	unsigned int y;

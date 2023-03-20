@@ -77,18 +77,12 @@ char *gui_SoundDrvNames[] = {"No sound", "LIBAO", "SDL mutex", "SDL"};
 char *gui_SoundSampleRates[] = {"11025", "16000", "22050", "32000", "44100"};
 
 MENUITEM gui_MainMenuItems[] = {
-	// {(char *)"Continue", NULL, 0, NULL, &call_continue},
-	// {(char *)"Key config", NULL, 0, NULL, &gui_KeyMenuRun},
-	// {(char *)"Load state: ", &nSavestateSlot, 9, NULL, &gui_LoadState},
-	// {(char *)"Save state: ", &nSavestateSlot, 9, NULL, &gui_Savestate},
-	// {(char *)"Reset", NULL, 0, NULL, &gui_reset},
-	// {(char *)"Exit", NULL, 0, NULL, &call_exit},
-	{(char *)"继续游戏", NULL, 0, NULL, &call_continue},
-	{(char *)"按键设置", NULL, 0, NULL, &gui_KeyMenuRun},
-	{(char *)"即时读档: ", &nSavestateSlot, 9, NULL, &gui_LoadState},
-	{(char *)"即时存档: ", &nSavestateSlot, 9, NULL, &gui_Savestate},
-	{(char *)"复位游戏", NULL, 0, NULL, &gui_reset},
-	{(char *)"退出游戏", NULL, 0, NULL, &call_exit},
+	{(char *)"Continue", NULL, 0, NULL, &call_continue},
+	{(char *)"Key config", NULL, 0, NULL, &gui_KeyMenuRun},
+	{(char *)"Load state: ", &nSavestateSlot, 9, NULL, &gui_LoadState},
+	{(char *)"Save state: ", &nSavestateSlot, 9, NULL, &gui_Savestate},
+	{(char *)"Reset", NULL, 0, NULL, &gui_reset},
+	{(char *)"Exit", NULL, 0, NULL, &call_exit},
 	{NULL, NULL, 0, NULL, NULL}
 };
 
@@ -147,33 +141,8 @@ void DrawChar(SDL_Surface *s, int x, int y, unsigned char a, int fg_color, int b
 */
 void DrawString(const char *s, unsigned short fg_color, unsigned short bg_color, int x, int y)
 {
-	// int i, j = strlen(s);
-	// for(i = 0; i < j; i++, x += 8) DrawChar(menuSurface, x, y, s[i], fg_color, bg_color);
-
-	/* 
-	SDL_Rect rt={0};
-	int w=0, h=0;
-	const char *err="请将游戏放到 /roms/gba/ 目录";
-	SDL_Color col={255, 255, 0};
-
-	TTF_SizeUTF8(font_small, err, &w, &h);
-	rt.x = (240 - w) / 2;
-	rt.y = 30 + ((195 - h) / 2);
-	msg = TTF_RenderUTF8_Solid(font_small, err, col);
-	SDL_BlitSurface(msg, NULL, screen, &rt);
-	SDL_FreeSurface(msg); 
-	*/
-	SDL_Surface *msg=NULL;
-	SDL_Rect rt={0};
-	int w=0, h=0;
-	SDL_Color col={255, 255, 0};
-	
-	rt.x = x;
-	rt.y = y;
-	msg = TTF_RenderUTF8_Solid(font_small, s, col);
-	SDL_BlitSurface(msg, NULL, screen, &rt);
-	SDL_FreeSurface(msg);
-	
+	int i, j = strlen(s);
+	for(i = 0; i < j; i++, x += 8) DrawChar(menuSurface, x, y, s[i], fg_color, bg_color);
 }
 
 void ShowMenuItem(int x, int y, MENUITEM *m, int fg_color)
